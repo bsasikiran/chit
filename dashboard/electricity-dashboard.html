@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chit - Electricity Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #eab308;
+            --accent-blue: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-badge {
+            background: var(--bg-card);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            padding: 20px 0;
+        }
+
+        .price-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-blue), #60a5fa);
+            border-radius: 2px 2px 0 0;
+            min-height: 4px;
+            position: relative;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .price-bar:hover {
+            filter: brightness(1.2);
+            z-index: 10;
+        }
+
+        .price-bar.cheap {
+            background: linear-gradient(to top, var(--accent-green), #4ade80);
+        }
+
+        .price-bar.expensive {
+            background: linear-gradient(to top, var(--accent-red), #f87171);
+        }
+
+        .price-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .price-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .price-bar:hover .price-value {
+            opacity: 1;
+        }
+
+        .optimal-windows {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .optimal-windows h3 {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .window-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bg-secondary);
+        }
+
+        .window-item:last-child {
+            border-bottom: none;
+        }
+
+        .window-time {
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 4px;
+        }
+
+        .window-savings {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-card);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .config-section {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .config-section h3 {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .config-input {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--bg-secondary);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .config-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .info-box h4 {
+            margin-bottom: 8px;
+            color: var(--accent-blue);
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--bg-card);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .legend-color.cheap { background: var(--accent-green); }
+        .legend-color.expensive { background: var(--accent-red); }
+        .legend-color.normal { background: var(--accent-blue); }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>⚡ Electricity Dashboard</h1>
+            <p class="subtitle">Dynamic pricing optimization for Tibber</p>
+        </header>
+
+        <div class="config-section" id="configSection">
+            <h3>🔧 Configuration</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">
+                Enter your Tibber API token to fetch live pricing data. 
+                <a href="https://developer.tibber.com/" target="_blank" style="color: var(--accent-blue);">Get token here</a>
+            </p>
+            <input type="text" id="tibberToken" class="config-input" placeholder="Enter Tibber API token">
+            <input type="text" id="tibberHomeId" class="config-input" placeholder="Enter Home ID (optional)">
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" onclick="saveConfig()">Save & Load Data</button>
+                <button class="btn btn-secondary" onclick="useDemoData()">Use Demo Data</button>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>💡 How This Works</h4>
+            <p>
+                This dashboard fetches hourly electricity prices from Tibber for today and tomorrow. 
+                It automatically identifies the 2-3 cheapest hour windows where you should schedule energy-intensive tasks 
+                (laundry, dishwasher, EV charging, heat pump operation) to maximize savings.
+            </p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Today's Prices</h2>
+                    <span class="card-badge" id="todayDate">--</span>
+                </div>
+                <div id="todayChart">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color cheap"></div><span>Cheap (<15 ct)</span></div>
+                    <div class="legend-item"><div class="legend-color normal"></div><span>Normal</span></div>
+                    <div class="legend-item"><div class="legend-color expensive"></div><span>Expensive (>30 ct)</span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Tomorrow's Prices</h2>
+                    <span class="card-badge" id="tomorrowDate">--</span>
+                </div>
+                <div id="tomorrowChart">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <div class="card-header">
+                <h2 class="card-title">🎯 Optimal Work Windows</h2>
+                <span class="card-badge">Best times for energy-intensive tasks</span>
+            </div>
+            <div id="optimalWindows">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header"><h2 class="card-title">📊 Price Statistics</h2></div>
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-value" id="avgPrice">--</div><div class="stat-label">Avg Price (ct/kWh)</div></div>
+                    <div class="stat-item"><div class="stat-value" id="minPrice">--</div><div class="stat-label">Min Price (ct/kWh)</div></div>
+                    <div class="stat-item"><div class="stat-value" id="maxPrice">--</div><div class="stat-label">Max Price (ct/kWh)</div></div>
+                    <div class="stat-item"><div class="stat-value" id="currentPrice">--</div><div class="stat-label">Current Price (ct/kWh)</div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h2 class="card-title">💰 Savings Potential</h2></div>
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-value" id="bestWindowAvg">--</div><div class="stat-label">Best Window Avg (ct/kWh)</div></div>
+                    <div class="stat-item"><div class="stat-value" id="savingsPercent">--</div><div class="stat-label">vs Average</div></div>
+                    <div class="stat-item"><div class="stat-value" id="worstWindowAvg">--</div><div class="stat-label">Worst Window Avg (ct/kWh)</div></div>
+                    <div class="stat-item"><div class="stat-value" id="maxSavings">--</div><div class="stat-label">Max Savings Potential</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let TIBBER_TOKEN = localStorage.getItem('tibberToken') || '';
+        let TIBBER_HOME_ID = localStorage.getItem('tibberHomeId') || '';
+
+        const demoPricesToday = [
+            { time: '00:00', price: 12.5 }, { time: '01:00', price: 11.2 },
+            { time: '02:00', price: 10.8 }, { time: '03:00', price: 10.5 },
+            { time: '04:00', price: 10.3 }, { time: '05:00', price: 10.1 },
+            { time: '06:00', price: 11.5 }, { time: '07:00', price: 15.2 },
+            { time: '08:00', price: 18.7 }, { time: '09:00', price: 20.3 },
+            { time: '10:00', price: 19.8 }, { time: '11:00', price: 17.5 },
+            { time: '12:00', price: 15.2 }, { time: '13:00', price: 14.8 },
+            { time: '14:00', price: 16.3 }, { time: '15:00', price: 19.5 },
+            { time: '16:00', price: 24.7 }, { time: '17:00', price: 32.5 },
+            { time: '18:00', price: 38.2 }, { time: '19:00', price: 35.8 },
+            { time: '20:00', price: 30.5 }, { time: '21:00', price: 25.3 },
+            { time: '22:00', price: 18.7 }, { time: '23:00', price: 14.2 }
+        ];
+
+        const demoPricesTomorrow = [
+            { time: '00:00', price: 13.2 }, { time: '01:00', price: 12.1 },
+            { time: '02:00', price: 11.5 }, { time: '03:00', price: 11.2 },
+            { time: '04:00', price: 10.8 }, { time: '05:00', price: 10.5 },
+            { time: '06:00', price: 12.3 }, { time: '07:00', price: 16.5 },
+            { time: '08:00', price: 21.2 }, { time: '09:00', price: 23.5 },
+            { time: '10:00', price: 22.1 }, { time: '11:00', price: 18.7 },
+            { time: '12:00', price: 16.2 }, { time: '13:00', price: 15.5 },
+            { time: '14:00', price: 17.8 }, { time: '15:00', price: 21.3 },
+            { time: '16:00', price: 26.5 }, { time: '17:00', price: 34.2 },
+            { time: '18:00', price: 39.5 }, { time: '19:00', price: 37.2 },
+            { time: '20:00', price: 32.1 }, { time: '21:00', price: 27.5 },
+            { time: '22:00', price: 20.3 }, { time: '23:00', price: 15.8 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (TIBBER_TOKEN) {
+                document.getElementById('tibberToken').value = TIBBER_TOKEN;
+                document.getElementById('tibberHomeId').value = TIBBER_HOME_ID;
+                loadTibberData();
+            } else {
+                useDemoData();
+            }
+        });
+
+        function saveConfig() {
+            TIBBER_TOKEN = document.getElementById('tibberToken').value.trim();
+            TIBBER_HOME_ID = document.getElementById('tibberHomeId').value.trim();
+            localStorage.setItem('tibberToken', TIBBER_TOKEN);
+            localStorage.setItem('tibberHomeId', TIBBER_HOME_ID);
+            loadTibberData();
+        }
+
+        function useDemoData() {
+            document.getElementById('configSection').style.display = 'none';
+            renderChart('todayChart', demoPricesToday, 'Today');
+            renderChart('tomorrowChart', demoPricesTomorrow, 'Tomorrow');
+            analyzeWindows([...demoPricesToday, ...demoPricesTomorrow]);
+        }
+
+        async function loadTibberData() {
+            const todayContainer = document.getElementById('todayChart');
+            const tomorrowContainer = document.getElementById('tomorrowChart');
+            
+            todayContainer.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+            tomorrowContainer.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            try {
+                const query = `
+                    query {
+                        viewer {
+                            homes {
+                                id
+                                currentSubscription {
+                                    priceInfo {
+                                        today {
+                                            total
+                                            startsAt
+                                        }
+                                        tomorrow {
+                                            total
+                                            startsAt
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                `;
+
+                const response = await fetch('https://api.tibber.com/v1-beta/gql', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': TIBBER_TOKEN,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.errors) {
+                    throw new Error(result.errors[0].message);
+                }
+
+                const homes = result.data.viewer.homes;
+                let home = homes[0];
+                
+                if (TIBBER_HOME_ID) {
+                    home = homes.find(h => h.id === TIBBER_HOME_ID) || homes[0];
+                }
+
+                const todayData = home.currentSubscription.priceInfo.today.map(p => ({
+                    time: new Date(p.startsAt).getHours().toString().padStart(2, '0') + ':00',
+                    price: Math.round(p.total * 100) / 100
+                }));
+
+                const tomorrowData = home.currentSubscription.priceInfo.tomorrow.map(p => ({
+                    time: new Date(p.startsAt).getHours().toString().padStart(2, '0') + ':00',
+                    price: Math.round(p.total * 100) / 100
+                }));
+
+                document.getElementById('configSection').style.display = 'none';
+                renderChart('todayChart', todayData, 'Today');
+                renderChart('tomorrowChart', tomorrowData, 'Tomorrow');
+                analyzeWindows([...todayData, ...tomorrowData]);
+
+            } catch (error) {
+                todayContainer.innerHTML = `
+                    <div class="error-message">
+                        <strong>Error loading Tibber data:</strong><br>
+                        ${error.message}<br><br>
+                        <button class="btn btn-secondary" onclick="useDemoData()">Show Demo Data</button>
+                    </div>
+                `;
+                tomorrowContainer.innerHTML = '';
+            }
+        }
+
+        function renderChart(containerId, data, label) {
+            const container = document.getElementById(containerId);
+            const dateLabel = containerId === 'todayChart' ? 'todayDate' : 'tomorrowDate';
+            
+            const now = new Date();
+            const today = now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
+                .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+            
+            document.getElementById(dateLabel).textContent = label === 'Today' ? today : tomorrow;
+
+            const prices = data.map(d => d.price);
+            const maxPrice = Math.max(...prices);
+            const avgPrice = prices.reduce((a, b) => a + b, 0) / prices.length;
+            const cheapThreshold = avgPrice * 0.7;
+            const expensiveThreshold = avgPrice * 1.4;
+
+            const html = `
+                <div class="chart-container">
+                    ${data.map((d, i) => {
+                        let barClass = '';
+                        if (d.price < cheapThreshold) barClass = 'cheap';
+                        else if (d.price > expensiveThreshold) barClass = 'expensive';
+                        
+                        const height = (d.price / maxPrice) * 100;
+                        
+                        return `
+                            <div class="price-bar ${barClass}" style="height: ${height}%" title="${d.time}: ${d.price} ct/kWh">
+                                <div class="price-value">${d.price}</div>
+                                <div class="price-label">${i % 3 === 0 ? d.time : ''}</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function analyzeWindows(allPrices) {
+            const windowSize = 3;
+            const windows = [];
+
+            for (let i = 0; i <= allPrices.length - windowSize; i++) {
+                const window = allPrices.slice(i, i + windowSize);
+                const avgPrice = window.reduce((a, b) => a + b.price, 0) / window.length;
+                windows.push({
+                    start: window[0].time,
+                    end: window[window.length - 1].time,
+                    avgPrice: Math.round(avgPrice * 10) / 10,
+                    prices: window
+                });
+            }
+
+            windows.sort((a, b) => a.avgPrice - b.avgPrice);
+            const bestWindows = windows.slice(0, 3);
+            
+            const allPricesValues = allPrices.map(p => p.price);
+            const avgPrice = allPricesValues.reduce((a, b) => a + b, 0) / allPricesValues.length;
+            const minPrice = Math.min(...allPricesValues);
+            const maxPrice = Math.max(...allPricesValues);
+            const currentHour = new Date().getHours();
+            const currentPrice = allPrices[currentHour]?.price || 0;
+
+            document.getElementById('avgPrice').textContent = avgPrice.toFixed(1);
+            document.getElementById('minPrice').textContent = minPrice.toFixed(1);
+            document.getElementById('maxPrice').textContent = maxPrice.toFixed(1);
+            document.getElementById('currentPrice').textContent = currentPrice.toFixed(1);
+
+            document.getElementById('bestWindowAvg').textContent = bestWindows[0].avgPrice.toFixed(1);
+            document.getElementById('savingsPercent').textContent = 
+                ((1 - bestWindows[0].avgPrice / avgPrice) * 100).toFixed(0) + '%';
+            
+            const worstWindow = windows[windows.length - 1];
+            document.getElementById('worstWindowAvg').textContent = worstWindow.avgPrice.toFixed(1);
+            document.getElementById('maxSavings').textContent = 
+                ((worstWindow.avgPrice - bestWindows[0].avgPrice) * 10).toFixed(0) + ' ct';
+
+            const container = document.getElementById('optimalWindows');
+            container.innerHTML = `
+                ${bestWindows.map((w, i) => `
+                    <div class="window-item">
+                        <div>
+                            <div class="window-time">🏆 Window #${i + 1}: ${w.start} - ${w.end}</div>
+                            <div class="window-savings">
+                                ${w.prices.map(p => p.price + ' ct').join(' → ')}
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--accent-green);">${w.avgPrice} ct/kWh avg</div>
+                            <div class="window-savings">${((1 - w.avgPrice / avgPrice) * 100).toFixed(0)}% below average</div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+    </script>
+</body>
+</html>
