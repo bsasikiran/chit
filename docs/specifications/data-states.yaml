@@ -1,0 +1,21 @@
+version: 1
+states:
+  measured:
+    description: Observed by an authorised connected source.
+    may_be_presented_as_actual: true
+  forecast:
+    description: Predicted for a future or current period.
+    may_be_presented_as_actual: false
+  manual:
+    description: Entered explicitly by an authorised person.
+    may_be_presented_as_actual: false
+  unavailable:
+    description: Required value is absent, disconnected, unsupported or unusable.
+    may_be_presented_as_actual: false
+  demo:
+    description: Illustrative value used for demonstration, never household fact.
+    may_be_presented_as_actual: false
+rules:
+  exactly_one_state_per_value: true
+  label_required_on_shared_display: true
+  colour_only_distinction_forbidden: true

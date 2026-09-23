@@ -1,0 +1,327 @@
+version: 1
+last_updated: '2026-09-23'
+source_of_truth: Individual story files contain authoritative behaviour and acceptance
+  criteria.
+releases:
+  pilot-1:
+    objective: Establish trusted source ingestion, provenance and privacy foundations.
+    stories:
+    - US-101
+    - US-102
+    - US-103
+    - US-104
+    - US-105
+    - US-106
+    - US-301
+    - US-302
+    - US-303
+    - US-304
+  pilot-2:
+    objective: Deliver the shared daily household view and read-only household context.
+    stories:
+    - US-201
+    - US-202
+    - US-203
+    - US-204
+    - US-305
+    - US-401
+    - US-404
+  pilot-3:
+    objective: Test trustworthy solar context and explainable energy suggestions.
+    stories:
+    - US-402
+    - US-403
+    - US-405
+    - US-406
+  pilot-4:
+    objective: Test bounded, explainable attention cards.
+    stories:
+    - US-501
+    - US-502
+    - US-503
+epics:
+  EPIC-01:
+    title: Household data foundation
+    file: epics/EPIC-01-household-data-foundation.md
+  EPIC-02:
+    title: Shared at-a-glance dashboard
+    file: epics/EPIC-02-shared-at-a-glance-dashboard.md
+  EPIC-03:
+    title: Truth and privacy
+    file: epics/EPIC-03-truth-and-privacy.md
+  EPIC-04:
+    title: Household and energy context
+    file: epics/EPIC-04-household-and-energy-context.md
+  EPIC-05:
+    title: Proactive interaction
+    file: epics/EPIC-05-proactive-interaction.md
+stories:
+  US-101:
+    file: stories/US-101-consistent-household-data-model.md
+    epic: EPIC-01
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - FL3
+    - DU1
+    - DU2
+  US-102:
+    file: stories/US-102-preserve-provenance-and-freshness.md
+    epic: EPIC-01
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - FL3
+    - DU5
+    - IE2
+    depends_on:
+    - US-101
+  US-103:
+    file: stories/US-103-connect-calendar-and-weather.md
+    epic: EPIC-01
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - D2
+    - FL2
+  US-104:
+    file: stories/US-104-connect-home-assistant.md
+    epic: EPIC-01
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - D2
+    - FL2
+    - DU4
+  US-105:
+    file: stories/US-105-graceful-unavailable-states.md
+    epic: EPIC-01
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - FL3
+    - DU3
+    - DU5
+    depends_on:
+    - US-101
+  US-106:
+    file: stories/US-106-extensible-connector-framework.md
+    epic: EPIC-01
+    priority: should
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - D2
+    - FL2
+    depends_on:
+    - US-101
+    - US-102
+  US-201:
+    file: stories/US-201-shared-household-dashboard.md
+    epic: EPIC-02
+    priority: must
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - FL5
+    - DU1
+    - DU2
+    depends_on:
+    - US-103
+  US-202:
+    file: stories/US-202-calendar-supported-availability.md
+    epic: EPIC-02
+    priority: must
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - DU2
+    - DU3
+    depends_on:
+    - US-103
+  US-203:
+    file: stories/US-203-unknown-availability.md
+    epic: EPIC-02
+    priority: must
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - DU3
+    - DU5
+    depends_on:
+    - US-202
+  US-204:
+    file: stories/US-204-configurable-cards-and-layout.md
+    epic: EPIC-02
+    priority: should
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - FL5
+    - DU1
+    depends_on:
+    - US-201
+  US-301:
+    file: stories/US-301-explicit-data-state-labels.md
+    epic: EPIC-03
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - FL3
+    - DU5
+    - IE2
+    depends_on:
+    - US-101
+  US-302:
+    file: stories/US-302-display-source-and-freshness.md
+    epic: EPIC-03
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - FL3
+    - DU5
+    - IE2
+    depends_on:
+    - US-102
+    - US-301
+  US-303:
+    file: stories/US-303-local-deployment-and-access-control.md
+    epic: EPIC-03
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - D3
+    - FL1
+  US-304:
+    file: stories/US-304-screen-safe-mode.md
+    epic: EPIC-03
+    priority: must
+    status: ready
+    release: pilot-1
+    journey_touchpoints:
+    - D3
+    - FL4
+    - DU1
+    depends_on:
+    - US-303
+  US-305:
+    file: stories/US-305-per-person-sensitive-permissions.md
+    epic: EPIC-03
+    priority: should
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - FL1
+    - FL4
+    depends_on:
+    - US-303
+  US-401:
+    file: stories/US-401-chores-and-appliance-context.md
+    epic: EPIC-04
+    priority: must
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - DU1
+    - DU4
+    depends_on:
+    - US-104
+    - US-201
+  US-402:
+    file: stories/US-402-separate-solar-forecast-and-actuals.md
+    epic: EPIC-04
+    priority: must
+    status: ready
+    release: pilot-3
+    journey_touchpoints:
+    - DU5
+    - IE3
+    depends_on:
+    - US-301
+  US-403:
+    file: stories/US-403-actual-solar-only-when-connected.md
+    epic: EPIC-04
+    priority: must
+    status: ready
+    release: pilot-3
+    journey_touchpoints:
+    - FL3
+    - DU5
+    - IE3
+    depends_on:
+    - US-104
+    - US-402
+  US-404:
+    file: stories/US-404-read-only-appliance-information.md
+    epic: EPIC-04
+    priority: must
+    status: ready
+    release: pilot-2
+    journey_touchpoints:
+    - DU4
+    - IE4
+    depends_on:
+    - US-104
+  US-405:
+    file: stories/US-405-read-only-energy-suggestions.md
+    epic: EPIC-04
+    priority: should
+    status: ready
+    release: pilot-3
+    journey_touchpoints:
+    - IE3
+    - IE4
+    depends_on:
+    - US-402
+    - US-403
+  US-406:
+    file: stories/US-406-explain-energy-suggestions.md
+    epic: EPIC-04
+    priority: should
+    status: ready
+    release: pilot-3
+    journey_touchpoints:
+    - IE2
+    - IE3
+    depends_on:
+    - US-405
+  US-501:
+    file: stories/US-501-prioritised-attention-cards.md
+    epic: EPIC-05
+    priority: should
+    status: ready
+    release: pilot-4
+    journey_touchpoints:
+    - IE1
+    depends_on:
+    - US-302
+  US-502:
+    file: stories/US-502-explain-attention-cards.md
+    epic: EPIC-05
+    priority: should
+    status: ready
+    release: pilot-4
+    journey_touchpoints:
+    - IE1
+    - IE2
+    depends_on:
+    - US-501
+  US-503:
+    file: stories/US-503-acknowledge-or-dismiss-insight.md
+    epic: EPIC-05
+    priority: should
+    status: ready
+    release: pilot-4
+    journey_touchpoints:
+    - IE1
+    - IE4
+    depends_on:
+    - US-501

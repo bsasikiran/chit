@@ -1,0 +1,76 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://chit.local/schemas/domain-model.json
+title: Chit normalized record
+type: object
+required:
+- id
+- householdId
+- entityType
+- source
+- dataState
+- availability
+- ingestedAt
+- schemaVersion
+properties:
+  id:
+    type: string
+    minLength: 1
+  householdId:
+    type: string
+    minLength: 1
+  entityType:
+    enum:
+    - person
+    - event
+    - task
+    - device
+    - energyReading
+    - tariffPeriod
+    - insight
+  source:
+    type: object
+    required:
+    - id
+    - type
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+      providerRef:
+        type: string
+    additionalProperties: false
+  dataState:
+    enum:
+    - measured
+    - forecast
+    - manual
+    - unavailable
+    - demo
+  availability:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        enum:
+        - available
+        - unavailable
+        - unknown
+      reason:
+        type: string
+    additionalProperties: false
+  observedAt:
+    type:
+    - string
+    - 'null'
+    format: date-time
+  ingestedAt:
+    type: string
+    format: date-time
+  schemaVersion:
+    type: integer
+    minimum: 1
+  payload:
+    type: object
+additionalProperties: false

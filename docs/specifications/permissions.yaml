@@ -1,0 +1,27 @@
+version: 1
+roles:
+  administrator:
+    capabilities:
+      - household:configure
+      - connector:configure
+      - display:configure
+      - policy:configure
+      - dashboard:read_authorised
+  member:
+    capabilities:
+      - dashboard:read_authorised
+      - insight:acknowledge
+      - insight:dismiss
+  shared-display:
+    capabilities:
+      - dashboard:read_screen_safe
+sensitive_categories:
+  - health
+  - finance
+  - tax
+  - private-calendar-details
+rules:
+  default_sensitive_access: deny
+  explicit_person_consent_required: true
+  shared_display_screen_safe_required: true
+  permission_revocation_invalidates_cache: true

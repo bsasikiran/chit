@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Chit Pilot API
+  version: 0.1.0
+  description: Draft read-oriented API contract for the first pilot.
+servers:
+  - url: /api/v1
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service health
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy, degraded]
+  /households/{householdId}/dashboard:
+    get:
+      operationId: getDashboard
+      description: Returns an authorised projection. Shared-display credentials receive screen-safe data.
+      parameters:
+        - name: householdId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Dashboard projection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardProjection'
+        '401': { description: Authentication required }
+        '403': { description: Not authorised }
+components:
+  schemas:
+    DataState:
+      type: string
+      enum: [measured, forecast, manual, unavailable, demo]
+    Provenance:
+      type: object
+      required: [sourceId, sourceType, dataState, ingestedAt]
+      properties:
+        sourceId: { type: string }
+        sourceType: { type: string }
+        dataState: { $ref: '#/components/schemas/DataState' }
+        observedAt: { type: [string, 'null'], format: date-time }
+        ingestedAt: { type: string, format: date-time }
+        stale: { type: boolean }
+    DashboardCard:
+      type: object
+      required: [id, type, status, provenance]
+      properties:
+        id: { type: string }
+        type: { type: string }
+        status: { type: string, enum: [available, unavailable, unknown] }
+        provenance: { $ref: '#/components/schemas/Provenance' }
+        content: { type: object, additionalProperties: true }
+    DashboardProjection:
+      type: object
+      required: [householdId, screenSafe, generatedAt, cards]
+      properties:
+        householdId: { type: string }
+        screenSafe: { type: boolean }
+        generatedAt: { type: string, format: date-time }
+        cards:
+          type: array
+          items: { $ref: '#/components/schemas/DashboardCard' }
