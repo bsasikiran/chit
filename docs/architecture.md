@@ -60,14 +60,39 @@
 
 ## Dashboard Features
 
-The dashboard (displayed on TV via Raspberry Pi) presents the most important user information:
+The dashboard (displayed on TV via Raspberry Pi) is an always-ready, read-only awareness board. During the first design phase all modules remain visible; prioritisation and responsive real-estate rules will evolve after the complete information surface is understood.
 
-- **Weather**: Current conditions and forecasts
-- **Solar Production**: Expected daily solar energy generation
-- **Electricity Pricing**: Graph of average hourly dynamic electricity prices
-- **Power Usage Overlay**: Expected consumption graph overlaid on production graph
-- **Calendar**: Today's events, reminders, and upcoming tasks (2–3 days or week view)
-- **Health Metrics**: Key health data and reminders (if applicable)
+### Weather module
+
+- Today is the primary visual: current temperature, condition, and the next eight hourly points in one row.
+- A seven-day row shows only the weather type plus high and low temperatures.
+- Public forecast data can come from Open-Meteo; the current prototype supports location coordinates and a demo fallback.
+
+### Calendar module
+
+- Shows every scheduled event plus chores and reminders across the next three days.
+- Calendar data is expected from a connected calendar service; the dashboard must distinguish connected data from demo or unavailable data.
+
+### Family+ module
+
+- Shows each household member's current presence and context without persisting their hour-by-hour location.
+- Surfaces near-term school and family events, such as the next five working days and the next exam.
+- Shows consented key health metrics such as steps, sleep, and HRV. The model can extend to seniors and their metrics.
+
+### Household module
+
+- Shows appliance state and schedules for the washing machine, dryer, and dishwasher.
+- Connects chores to electricity price and solar windows, including unfinished weekly washing and the best available run time.
+- Home Assistant is the local integration boundary for device state and automation.
+
+### Solar production module
+
+- Separates public estimates from private inverter data: weather and sun-position estimates may be fetched publicly, while measured production requires a user-configured inverter or Home Assistant connection.
+- Displays estimated daily production, current output, peak production hour, dynamic electricity price, and the best household action.
+
+### Current dashboard composition
+
+The first home board is implemented in `dashboard/ux_home.html`. It keeps Weather, Calendar, Family+, Household, Solar, and connection configuration visible at once. It uses demo data when a private integration is not configured and labels connection state so estimates are not presented as measured facts.
 
 ---
 
