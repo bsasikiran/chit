@@ -160,3 +160,13 @@ Local Hardware          Cloud Services
 ---
 
 *Document created: September 21, 2026*
+
+## Documentation status
+
+This overview describes the broader intended ecosystem. The approved first-pilot boundaries and implementation order are defined by `docs/releases/pilot-scope.md`, the accepted ADRs and individual backlog stories. If the broader vision conflicts with pilot scope, the pilot documents take precedence.
+
+## Pilot architecture boundary
+
+The first pilot consists of connector adapters, a normalized household data layer, read-only insight services, an API/presentation policy layer and a shared dashboard. Home Assistant remains an optional read-only integration boundary. Messaging and specialist agents remain outside the first pilot.
+
+See the architecture-as-code files under `docs/architecture/diagrams/` and machine-readable contracts under `docs/specifications/`.
