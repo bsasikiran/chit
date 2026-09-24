@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chit — Home</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17231f;
+      --muted: #6d7873;
+      --paper: #f7f8f4;
+      --surface: #ffffff;
+      --line: #e3e8e2;
+      --accent: #2c735d;
+      --accent-soft: #e8f2ec;
+      --warm: #f3eadc;
+      --shadow: 0 18px 50px rgba(39, 59, 49, .08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+    }
+
+    aside {
+      background: #17352c;
+      color: #eef7f0;
+      padding: 28px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+    .brand { padding: 0 14px; }
+    .brand-mark { letter-spacing: -.05em; font-size: 29px; font-weight: 800; }
+    .brand-copy { color: #b9d0c2; font-size: 12px; margin-top: 2px; }
+    nav { display: grid; gap: 6px; }
+    nav button {
+      border: 0;
+      color: #c5d8cd;
+      background: transparent;
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: left;
+    }
+    nav button:hover, nav button.active { background: #285444; color: #fff; }
+    .workspace {
+      margin-top: auto;
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding: 20px 14px 0;
+      color: #c5d8cd;
+      font-size: 13px;
+    }
+    .workspace strong { display: block; color: #fff; margin-bottom: 3px; }
+
+    main { min-width: 0; padding: 30px clamp(22px, 5vw, 68px) 56px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 42px;
+    }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: -.045em; margin: 7px 0 0; }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+    .icon-button, .avatar {
+      width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    }
+    .avatar { background: var(--warm); border: 0; font-weight: 750; }
+    .primary {
+      border: 0; border-radius: 11px; background: var(--accent); color: #fff; padding: 11px 16px; font-weight: 700;
+      box-shadow: 0 8px 18px rgba(44,115,93,.18);
+    }
+    .primary:hover { background: #205d4b; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 34px; }
+    .summary-card, .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+    .summary-card { padding: 20px; }
+    .summary-label { color: var(--muted); font-size: 13px; }
+    .summary-value { font-size: 30px; font-weight: 760; letter-spacing: -.04em; margin-top: 8px; }
+    .summary-note { color: var(--accent); font-size: 12px; margin-top: 4px; }
+
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 18px; align-items: start; }
+    .panel { padding: 22px; }
+    .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+    h2 { font-size: 18px; letter-spacing: -.02em; margin: 0; }
+    .text-button { border: 0; background: transparent; color: var(--accent); font-weight: 700; padding: 4px; }
+    .chit-list { display: grid; gap: 10px; }
+    .chit {
+      display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 13px; align-items: center;
+      border: 1px solid var(--line); border-radius: 13px; padding: 14px;
+    }
+    .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+    .status-dot.pending { background: #d39a42; }
+    .chit-title { font-weight: 700; }
+    .chit-meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .chit-date { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .empty-state { color: var(--muted); padding: 24px 8px 8px; text-align: center; }
+    .quick-actions { display: grid; gap: 10px; }
+    .quick-action { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 13px; background: #fff; padding: 13px; text-align: left; }
+    .quick-action:hover { border-color: #a5c9b8; background: var(--accent-soft); }
+    .quick-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: var(--accent-soft); color: var(--accent); font-weight: 800; }
+    .quick-action span { font-weight: 650; }
+    .activity { margin-top: 18px; }
+    .activity-item { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .activity-item:last-child { border-bottom: 0; }
+    .activity-copy { font-size: 13px; }
+    .activity-copy small { display: block; color: var(--muted); margin-top: 2px; }
+
+    @media (max-width: 900px) {
+      .app-shell { grid-template-columns: 1fr; }
+      aside { padding: 16px; gap: 18px; }
+      nav { display: flex; overflow-x: auto; }
+      nav button { white-space: nowrap; }
+      .workspace { display: none; }
+      main { padding: 24px 18px 42px; }
+    }
+    @media (max-width: 650px) {
+      .topbar { align-items: flex-start; }
+      .top-actions .primary { display: none; }
+      .summary-grid, .content-grid { grid-template-columns: 1fr; }
+      .summary-grid { gap: 10px; }
+      .summary-card { padding: 16px; }
+      .summary-value { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside>
+      <div class="brand">
+        <div class="brand-mark">chit</div>
+        <div class="brand-copy">Shared clarity, one small step at a time.</div>
+      </div>
+      <nav aria-label="Primary navigation">
+        <button class="active" type="button">Home</button>
+        <button type="button">My chits</button>
+        <button type="button">Activity</button>
+        <button type="button">People</button>
+      </nav>
+      <div class="workspace">
+        <strong>Munich household</strong>
+        Personal workspace · 4 members
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Thursday, 24 September</div>
+          <h1>Good evening, there.</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" type="button" aria-label="Search">⌕</button>
+          <button class="icon-button" type="button" aria-label="Notifications">♢</button>
+          <button class="avatar" type="button" aria-label="Open profile">BS</button>
+          <button class="primary" type="button">+ New chit</button>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Overview">
+        <article class="summary-card"><div class="summary-label">Open chits</div><div class="summary-value">8</div><div class="summary-note">2 need your attention</div></article>
+        <article class="summary-card"><div class="summary-label">Due this week</div><div class="summary-value">5</div><div class="summary-note">Across 3 people</div></article>
+        <article class="summary-card"><div class="summary-label">Completed this month</div><div class="summary-value">14</div><div class="summary-note">+18% from last month</div></article>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel" aria-labelledby="recent-heading">
+          <div class="panel-heading"><h2 id="recent-heading">Recent chits</h2><button class="text-button" type="button">View all</button></div>
+          <div class="chit-list">
+            <article class="chit"><span class="status-dot"></span><div><div class="chit-title">Book the boiler service</div><div class="chit-meta">Assigned to you · Home</div></div><time class="chit-date">Today</time></article>
+            <article class="chit"><span class="status-dot pending"></span><div><div class="chit-title">Send school registration form</div><div class="chit-meta">Assigned to Anna · Family</div></div><time class="chit-date">Tomorrow</time></article>
+            <article class="chit"><span class="status-dot"></span><div><div class="chit-title">Plan October garden work</div><div class="chit-meta">Assigned to everyone · Garden</div></div><time class="chit-date">28 Sep</time></article>
+            <article class="chit"><span class="status-dot"></span><div><div class="chit-title">Renew bicycle insurance</div><div class="chit-meta">Assigned to you · Personal</div></div><time class="chit-date">30 Sep</time></article>
+          </div>
+        </section>
+
+        <div>
+          <section class="panel" aria-labelledby="quick-heading">
+            <div class="panel-heading"><h2 id="quick-heading">Quick actions</h2></div>
+            <div class="quick-actions">
+              <button class="quick-action" type="button"><span class="quick-icon">+</span><span>Create a chit</span></button>
+              <button class="quick-action" type="button"><span class="quick-icon">↗</span><span>Invite someone</span></button>
+              <button class="quick-action" type="button"><span class="quick-icon">✓</span><span>Review completed</span></button>
+            </div>
+          </section>
+          <section class="panel activity" aria-labelledby="activity-heading">
+            <div class="panel-heading"><h2 id="activity-heading">Latest activity</h2><button class="text-button" type="button">See more</button></div>
+            <div class="activity-item"><span class="status-dot"></span><div class="activity-copy">Anna completed <strong>Buy compost</strong><small>35 minutes ago</small></div></div>
+            <div class="activity-item"><span class="status-dot pending"></span><div class="activity-copy">You were assigned <strong>Boiler service</strong><small>Yesterday</small></div></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
