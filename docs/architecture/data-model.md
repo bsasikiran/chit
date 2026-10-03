@@ -37,6 +37,18 @@ All normalized records must include:
 
 Freshness is evaluated using source-specific policy. A stale record may remain visible for context but must not appear live. If freshness cannot be determined, it is unknown.
 
+## Persistence and access boundary
+
+Chit's Chit-owned structured records use SQLite on the household-controlled host, with encryption at rest required. The encryption mechanism and key lifecycle must be selected before implementation. Browser clients access persisted data through the application/API boundary, not by opening the database file.
+
+Subscribed calendar events remain authoritative at their external source and are not durably mirrored by default. Persist source configuration, household mappings and Chit-owned derived records; any event cache must have an explicit need and bounded retention. The storage decision is recorded in [ADR-0004](adr/0004-sqlite-encrypted-local-storage.md).
+
+This persistence decision does not define application authentication, authorization or member-level access management. Those remain separate design work.
+
+The initial relational structure separates household and member profiles from optional adult work patterns, child care days, child activity recurrence, calendar-source/member mappings, chore-generation rules and chores/assignees. Household ownership references one adult member. Calendar-source access is read-only. Generated chores retain their source occurrence and rule references so repeated refreshes can be idempotent; completed or manually modified chores are not overwritten by a source refresh.
+
+The initial schema is versioned through SQL migrations under `server/chit_store/migrations/`. It deliberately has no general-purpose subscribed-event table. Database access is currently a Python repository module, not yet an HTTP API or application access-control implementation.
+
 ## Detailed contract
 
 The draft machine-readable definition is `docs/specifications/domain-model.yaml`.

@@ -1,0 +1,18 @@
+# Local encrypted household data and its SQLite sidecars
+/data/
+*.db
+*.db-wal
+*.db-shm
+
+# Local Python environment and bytecode
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local secrets and runtime configuration
+.env
+.env.*
+!.env.example
+config.js
+js/config.js
+*.key

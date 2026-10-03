@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chit | Household setup</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20332e;
+      --muted: #697873;
+      --line: #d9e1dc;
+      --paper: #fbfaf6;
+      --surface: #fffefa;
+      --surface-muted: #f1f4ef;
+      --green: #276957;
+      --green-dark: #194c40;
+      --mint: #e5f0e8;
+      --coral: #c75e45;
+      --yellow: #d5a63b;
+      --shadow: 0 16px 45px rgba(34, 57, 48, .07);
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(rgba(39, 105, 87, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(39, 105, 87, .035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button, a, input, select { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    .topbar {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px clamp(18px, 4vw, 58px);
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: .02em; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: white; background: var(--green); font: 700 17px Georgia, serif; }
+    .top-note { color: var(--muted); font-size: 13px; }
+    .logout-button { border:1px solid var(--line); border-radius:8px; padding:7px 11px; color:var(--green-dark); background:white; font-size:12px; font-weight:700; }
+    .logout-button:hover { background:var(--mint); }
+    .layout { width: min(1280px, 100%); margin: 0 auto; padding: 38px clamp(16px, 4vw, 56px) 70px; }
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px; margin: 6px 0 30px; animation: rise .45s ease-out both; }
+    .eyebrow { color: var(--coral); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font: 500 clamp(32px, 4vw, 46px)/1.06 Georgia, "Times New Roman", serif; }
+    .intro p { max-width: 620px; margin-bottom: 0; color: var(--muted); }
+    .draft-state { display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid #e5d49f; border-radius: 9px; background: #fff8df; color: #6d5721; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .draft-state::before { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); content: ""; }
+
+    .setup-grid { display: block; }
+
+    .form-column { min-width: 0; display: grid; gap: 18px; }
+    .section { scroll-margin-top: 18px; padding: clamp(20px, 3vw, 30px); border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); animation: rise .5s ease-out both; }
+    .section:nth-child(2) { animation-delay: .06s; }
+    .section:nth-child(3) { animation-delay: .12s; }
+    .section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+    .section-index { margin-bottom: 5px; color: var(--coral); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin-bottom: 5px; font: 500 25px/1.15 Georgia, "Times New Roman", serif; }
+    .section-head p { max-width: 570px; margin: 0; color: var(--muted); font-size: 13px; }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 18px; }
+    .field { position: relative; min-width: 0; }
+    .field.wide { grid-column: 1 / -1; }
+    label, .field-label { display: block; margin-bottom: 6px; color: #40524b; font-size: 12px; font-weight: 750; }
+    .field > label:not(.chore-rule-head) { position: absolute; top: 5px; left: 11px; z-index: 1; margin: 0; color: var(--muted); font-size: 10px; font-weight: 750; pointer-events: none; }
+    input, select {
+      width: 100%; min-height: 52px; padding: 21px 11px 7px; border: 1px solid #cbd6cf; border-radius: 9px; color: var(--ink); background: #fff;
+    }
+    input:focus, select:focus, button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid rgba(39, 105, 87, .28); outline-offset: 2px; }
+    input::placeholder { color: #98a49d; }
+    .field-help { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
+    .unit-input { display: grid; grid-template-columns: 1fr auto; align-items: center; overflow: hidden; border: 1px solid #cbd6cf; border-radius: 9px; background: white; }
+    .unit-input input { border: 0; }
+    .unit-input span { padding: 0 12px; color: var(--muted); font-size: 12px; }
+
+    .member-list { display: grid; gap: 12px; }
+    .member-card { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .member-summary { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 14px 16px; }
+    .avatar { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--green-dark); background: var(--mint); font: 600 15px Georgia, serif; }
+    .avatar.child { color: #765127; background: #f4ead5; }
+    .member-name { min-width: 0; font-weight: 750; }
+    .member-subtitle { color: var(--muted); font-size: 11px; }
+    .owner-choice { display: inline-flex; align-items: center; gap: 7px; color: var(--green-dark); font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .owner-choice input { width: 16px; min-height: 16px; height: 16px; margin: 0; accent-color: var(--green); }
+    .member-details { border-top: 1px solid #e8ede9; padding: 18px 16px 20px; }
+    .member-details[hidden] { display: none; }
+    .details-toggle, .remove-button { border: 0; padding: 6px 8px; color: var(--muted); background: transparent; font-size: 12px; }
+    .details-toggle:hover, .remove-button:hover { color: var(--green-dark); background: var(--surface-muted); }
+    .remove-button { color: #a14c39; }
+    .weekday-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
+    .day-control { min-width: 0; }
+    .day-control label { margin: 0 0 4px; color: var(--muted); font-size: 10px; }
+    .day-control select { min-height: 37px; padding: 5px; font-size: 11px; }
+    .subsection-title { margin: 18px 0 10px; color: var(--ink); font-size: 12px; font-weight: 800; }
+    .member-subsection { margin-top: 18px; padding-top: 15px; border-top: 1px solid #e8ede9; }
+    .member-subsection .subsection-title { margin-top: 0; }
+    .owner-note { margin: 14px 0 0; padding: 11px 12px; border-left: 2px solid var(--yellow); border-radius: 0 9px 9px 0; color: #625629; background: #fff9e8; font-size: 12px; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .button { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #cbd6cf; border-radius: 9px; padding: 8px 14px; color: var(--green-dark); background: #fff; font-size: 12px; font-weight: 750; }
+    .button:hover { border-color: var(--green); background: var(--mint); }
+    .button.primary { border-color: var(--green); color: white; background: var(--green); }
+    .button.primary:hover { background: var(--green-dark); }
+    .button.text-button { border-color: transparent; color: var(--muted); background: transparent; }
+    .calendar-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; padding: 16px; border: 1px dashed #bac9bf; border-radius: 12px; background: #f8faf6; }
+    .calendar-form .wide { grid-column: 1 / -1; }
+    .check-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .check-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 6px 10px; border: 1px solid #d5ded8; border-radius: 8px; background: white; color: #495b53; font-size: 11px; }
+    .check-chip input { width: 15px; min-height: 15px; height: 15px; margin: 0; accent-color: var(--green); }
+    .feed-list { display: grid; gap: 10px; margin: 15px 0; }
+    .feed-row { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .feed-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; color: var(--green); background: var(--mint); font-size: 11px; font-weight: 800; }
+    .feed-title { overflow: hidden; font-size: 13px; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+    .feed-meta { color: var(--muted); font-size: 11px; }
+    .read-only { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid #d6e3da; border-radius: 8px; color: var(--green-dark); background: #f2f8f3; font-size: 10px; font-weight: 800; white-space: nowrap; }
+    .read-only::before { width: 6px; height: 6px; border-radius: 50%; background: #49936e; content: ""; }
+    .empty-feeds { padding: 18px; border: 1px dashed #cbd6cf; border-radius: 10px; color: var(--muted); text-align: center; font-size: 12px; }
+    .feed-assignees { margin-top: 8px; color: var(--muted); font-size: 11px; }
+    .chore-rule { display: grid; gap: 12px; margin-top: 15px; padding: 14px; border: 1px solid #dce4de; border-radius: 10px; background: var(--surface-muted); }
+    .chore-rule-head { display: flex; align-items: flex-start; gap: 9px; }
+    .chore-rule-head input { width: 16px; min-height: 16px; height: 16px; margin-top: 2px; accent-color: var(--green); }
+    .chore-rule-head strong { display: block; font-size: 12px; }
+    .chore-rule-head small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .chore-assignees[hidden] { display: none; }
+    .footer-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; }
+    .footer-actions p { margin: 0; color: var(--muted); font-size: 11px; }
+    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 5; max-width: min(390px, calc(100vw - 40px)); padding: 13px 16px; color: white; background: var(--green-dark); box-shadow: var(--shadow); font-size: 13px; }
+    .toast[hidden] { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .setup-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    }
+    @media (max-width: 620px) {
+      .topbar { min-height: 58px; }
+      .top-note { max-width: 170px; text-align: right; font-size: 11px; }
+      .layout { padding-top: 25px; }
+      .intro { grid-template-columns: 1fr; align-items: start; gap: 12px; }
+      .draft-state { justify-self: start; }
+      .section-head { flex-direction: column; gap: 10px; }
+      .field-grid, .calendar-form { grid-template-columns: 1fr; }
+      .field.wide, .calendar-form .wide { grid-column: auto; }
+      .weekday-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .member-summary { grid-template-columns: 36px minmax(0, 1fr) auto; gap: 8px; padding: 12px; }
+      .member-summary .owner-choice { grid-column: 2 / -1; justify-self: start; }
+      .member-summary .remove-button { grid-column: 3; grid-row: 1; }
+      .details-toggle { grid-column: 2; grid-row: 2; justify-self: start; }
+      .feed-row { grid-template-columns: 34px minmax(0, 1fr); }
+      .feed-row .read-only { grid-column: 2; justify-self: start; }
+      .footer-actions { align-items: stretch; flex-direction: column-reverse; }
+      .footer-actions .button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <chit-ribbon active="settings"></chit-ribbon>
+
+  <main class="layout">
+    <header class="intro">
+      <div>
+        <div class="eyebrow">First, who is in your household?</div>
+        <h1>Set up your family</h1>
+        <p>Add the people whose schedules matter, then connect the calendars that help everyone see what is coming.</p>
+      </div>
+      <div class="draft-state">Setup draft · not saved</div>
+    </header>
+
+    <form id="household-form" novalidate>
+      <div class="setup-grid">
+
+
+        <div class="form-column">
+          <section class="section" id="household" aria-labelledby="household-title">
+            <div class="section-head">
+              <div><div class="section-index">01 / Household</div><h2 id="household-title">Your household</h2><p>Used to interpret local dates, school calendars and time-based schedules.</p></div>
+            </div>
+            <div class="field-grid">
+              <div class="field"><label for="household-name">Household name</label><input id="household-name" name="householdName" placeholder="e.g. The Meyer household" required></div>
+              <div class="field"><label for="timezone">Time zone</label><select id="timezone" name="timezone"><option value="Europe/Berlin">Europe/Berlin</option><option value="Europe/London">Europe/London</option><option value="Europe/Paris">Europe/Paris</option><option value="America/New_York">America/New_York</option><option value="America/Los_Angeles">America/Los_Angeles</option><option value="other">Choose another…</option></select></div>
+              <div class="field"><label for="country">Country</label><select id="country" name="country"><option value="DE">Germany</option><option value="AT">Austria</option><option value="CH">Switzerland</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="other">Other</option></select></div>
+              <div class="field"><label for="region">State / region</label><input id="region" name="region" placeholder="e.g. Bayern"></div>
+            </div>
+          </section>
+
+          <section class="section" id="members" aria-labelledby="members-title">
+            <div class="section-head">
+              <div><div class="section-index">02 / Family members</div><h2 id="members-title">Start with an adult</h2><p>Add the first adult profile. Once it is added, you can include another adult or children. The first adult is the household owner by default.</p></div>
+            </div>
+            <div id="member-list" class="member-list" aria-live="polite"></div>
+            <div class="button-row" id="first-adult-actions">
+              <button class="button primary" type="button" id="add-first-adult">Add adult &amp; continue</button>
+            </div>
+            <div class="button-row" id="member-actions" hidden>
+              <button class="button" type="button" id="add-adult">Add an adult</button>
+              <button class="button" type="button" id="add-child">Add a child</button>
+            </div>
+            <p class="owner-note">Each profile can hold schedule context used later for household time views. Access permissions will be designed separately. Grandparents and other helpers are a future extension.</p>
+          </section>
+
+          <section class="section" id="calendars" aria-labelledby="calendars-title" hidden>
+            <div class="section-head">
+              <div><div class="section-index">03 / Subscribed calendars</div><h2 id="calendars-title">Bring schedules together</h2><p>Add read-only calendar links such as waste collection, school, club activities or work. Choose whose schedule each feed relates to.</p></div>
+            </div>
+            <div id="feed-list" class="feed-list" aria-live="polite"></div>
+            <div id="empty-feeds" class="empty-feeds">No subscribed calendars added yet.</div>
+            <div class="calendar-form" aria-label="Add a subscribed calendar">
+              <div class="field"><label for="feed-name">Calendar name</label><input id="feed-name" placeholder="e.g. City waste collection"></div>
+              <div class="field"><label for="feed-type">What is it for?</label><select id="feed-type"><option value="Waste collection">Waste collection</option><option value="School / care">School / care</option><option value="Sport / activity">Sport / activity</option><option value="Work">Work</option><option value="Family">Family</option><option value="Other">Other</option></select></div>
+              <div class="field wide"><label for="feed-url">Calendar subscription URL</label><input id="feed-url" inputmode="url" placeholder="https://… or webcal://…"><p class="field-help">Use a read-only subscription link from the calendar provider. Credentials and access are not configured by this prototype.</p></div>
+              <div class="field wide"><span class="field-label">Related household members <span style="font-weight:400;color:var(--muted)">(optional, choose any)</span></span><div id="feed-members" class="check-list"></div></div>
+              <div class="field wide" id="chore-fields">
+                <label class="chore-rule-head"><input id="make-chore" type="checkbox"><span><strong>Create a household chore from collection dates</strong><small>Feed events stay read-only; this creates a separate household task.</small></span></label>
+                <div class="chore-assignees"><span class="field-label">Who handles this? <span style="font-weight:400;color:var(--muted)">(optional)</span></span><div id="chore-members" class="check-list"></div></div>
+              </div>
+              <div class="field wide"><button class="button" type="button" id="add-feed">Add calendar</button></div>
+            </div>
+          </section>
+
+          <div class="footer-actions" id="review-actions" hidden>
+            <p id="save-note">Saves one household to this device’s encrypted database. Editing after save is not available yet.</p>
+            <button class="button primary" type="submit">Save household setup</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <template id="adult-template">
+    <article class="member-card" data-kind="adult">
+      <div class="member-summary">
+        <div class="avatar" aria-hidden="true">A</div>
+        <div><div class="member-name">New adult</div><div class="member-subtitle">Adult · household member</div></div>
+        <label class="owner-choice"><input type="radio" name="householdOwner"> Household owner</label>
+        <button class="details-toggle" type="button" aria-expanded="true">Hide settings</button>
+        <button class="remove-button" type="button" aria-label="Remove adult">Remove</button>
+      </div>
+      <div class="member-details">
+        <div class="field-grid">
+          <div class="field"><label>Full name</label><input data-field="name" placeholder="Adult's name" required></div>
+          <div class="field"><label>Date of birth <span style="font-weight:400;color:var(--muted)">(optional)</span></label><input data-field="birthDate" type="date"></div>
+          <div class="field"><label>Typical work hours from</label><input data-field="workStart" type="time" value="09:00"></div>
+          <div class="field"><label>Typical work hours to</label><input data-field="workEnd" type="time" value="17:00"></div>
+          <div class="field"><label>Commute, one way</label><div class="unit-input"><input data-field="commute" type="number" min="0" max="300" value="0"><span>minutes</span></div></div>
+          <div class="field"><label>Evening / weekend availability</label><select data-field="care"><option value="not-set">Not set</option><option value="available">Usually available</option><option value="unavailable">Usually unavailable</option><option value="varies">Varies by week</option></select></div>
+        </div>
+        <div class="subsection-title">Usual work location by day</div>
+        <div class="weekday-grid" data-weekdays>
+          <div class="day-control"><label>Mon</label><select aria-label="Monday work location"><option>Office</option><option>Home</option><option>Off</option></select></div>
+          <div class="day-control"><label>Tue</label><select aria-label="Tuesday work location"><option>Office</option><option>Home</option><option>Off</option></select></div>
+          <div class="day-control"><label>Wed</label><select aria-label="Wednesday work location"><option>Office</option><option>Home</option><option>Off</option></select></div>
+          <div class="day-control"><label>Thu</label><select aria-label="Thursday work location"><option>Office</option><option>Home</option><option>Off</option></select></div>
+          <div class="day-control"><label>Fri</label><select aria-label="Friday work location"><option>Office</option><option>Home</option><option>Off</option></select></div>
+          <div class="day-control"><label>Sat</label><select aria-label="Saturday work location"><option>Off</option><option>Office</option><option>Home</option></select></div>
+          <div class="day-control"><label>Sun</label><select aria-label="Sunday work location"><option>Off</option><option>Office</option><option>Home</option></select></div>
+        </div>
+        <div class="member-subsection">
+          <div class="subsection-title">Optional planning details</div>
+          <div class="field-grid">
+            <div class="field"><label>Typical focus time from</label><input data-field="focusStart" type="time"></div>
+            <div class="field"><label>Typical focus time to</label><input data-field="focusEnd" type="time"></div>
+            <div class="field"><label>Babysitting evenings per week</label><select data-field="babysitting"><option value="not-set">Not set</option><option value="0">0</option><option value="1">Up to 1</option><option value="2">Up to 2</option><option value="3">Up to 3</option></select></div>
+            <div class="field"><label>Babysitting notice needed</label><select data-field="notice"><option value="not-set">Not set</option><option value="same-day">Same day</option><option value="1-day">1 day</option><option value="2-days">2 days</option><option value="1-week">1 week</option></select></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="child-template">
+    <article class="member-card" data-kind="child">
+      <div class="member-summary">
+        <div class="avatar child" aria-hidden="true">K</div>
+        <div><div class="member-name">New child</div><div class="member-subtitle">Child · household member</div></div>
+        <span></span>
+        <button class="details-toggle" type="button" aria-expanded="true">Hide settings</button>
+        <button class="remove-button" type="button" aria-label="Remove child">Remove</button>
+      </div>
+      <div class="member-details">
+        <div class="field-grid">
+          <div class="field"><label>Full name</label><input data-field="name" placeholder="Child's name" required></div>
+          <div class="field"><label>Date of birth</label><input data-field="birthDate" type="date"></div>
+          <div class="field"><label>School or care setting</label><input data-field="school" placeholder="e.g. Primary school"></div>
+          <div class="field"><label>School type / year</label><input data-field="schoolYear" placeholder="e.g. Year 2"></div>
+          <div class="field"><label>After-school care</label><select data-field="afterCare"><option value="not-set">Not set</option><option value="yes">Attends after-school care</option><option value="no">No after-school care</option><option value="varies">Varies by day</option></select></div>
+          <div class="field"><label>Usual pickup time <span style="font-weight:400;color:var(--muted)">(optional)</span></label><input data-field="pickup" type="time"></div>
+          <div class="field"><label>Supervision outside school</label><select data-field="supervision"><option value="not-set">Not set</option><option value="always">Adult supervision needed</option><option value="sometimes">Depends on time / situation</option><option value="independent">Usually independent</option></select></div>
+          <div class="field"><label>Usual pickup adult</label><select data-field="pickupAdult"><option value="">Choose an adult…</option></select></div>
+          <div class="field"><label>Usual drop-off adult</label><select data-field="dropoffAdult"><option value="">Choose an adult…</option></select></div>
+          <div class="field"><label>Travel time to school / care</label><div class="unit-input"><input data-field="travel" type="number" min="0" max="300" value="0"><span>minutes</span></div></div>
+        </div>
+        <div class="member-subsection">
+          <div class="subsection-title">After-school care days <span style="font-weight:400;color:var(--muted)">(if applicable)</span></div>
+          <div class="check-list">
+            <label class="check-chip"><input type="checkbox" value="Mon"><span>Mon</span></label><label class="check-chip"><input type="checkbox" value="Tue"><span>Tue</span></label><label class="check-chip"><input type="checkbox" value="Wed"><span>Wed</span></label><label class="check-chip"><input type="checkbox" value="Thu"><span>Thu</span></label><label class="check-chip"><input type="checkbox" value="Fri"><span>Fri</span></label>
+          </div>
+        </div>
+        <div class="member-subsection">
+          <div class="subsection-title">Regular activity <span style="font-weight:400;color:var(--muted)">(optional)</span></div>
+          <div class="field-grid">
+            <div class="field"><label>Activity</label><input data-field="activity" placeholder="e.g. swimming"></div>
+            <div class="field"><label>Location</label><input data-field="activityLocation" placeholder="e.g. community pool"></div>
+            <div class="field"><label>Usual start time</label><input data-field="activityStart" type="time"></div>
+            <div class="field"><label>Usual end time</label><input data-field="activityEnd" type="time"></div>
+            <div class="field wide"><span class="field-label">Usual days</span><div class="check-list"><label class="check-chip"><input type="checkbox" value="Mon"><span>Mon</span></label><label class="check-chip"><input type="checkbox" value="Tue"><span>Tue</span></label><label class="check-chip"><input type="checkbox" value="Wed"><span>Wed</span></label><label class="check-chip"><input type="checkbox" value="Thu"><span>Thu</span></label><label class="check-chip"><input type="checkbox" value="Fri"><span>Fri</span></label><label class="check-chip"><input type="checkbox" value="Sat"><span>Sat</span></label><label class="check-chip"><input type="checkbox" value="Sun"><span>Sun</span></label></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    const memberList = document.querySelector('#member-list');
+    const feedList = document.querySelector('#feed-list');
+    const feedMembers = document.querySelector('#feed-members');
+    const choreMembers = document.querySelector('#chore-members');
+    const choreFields = document.querySelector('#chore-fields');
+    const choreToggle = document.querySelector('#make-chore');
+    const toast = document.querySelector('#toast');
+    const firstAdultActions = document.querySelector('#first-adult-actions');
+    const memberActions = document.querySelector('#member-actions');
+    const calendarSection = document.querySelector('#calendars');
+    const calendarStep = document.querySelector('#calendar-step');
+    const reviewActions = document.querySelector('#review-actions');
+    const setupCalendars = [];
+    let toastTimer;
+    let nextMemberId = 0;
+    let firstAdultAdded = false;
+    let setupSaved = false;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.hidden = false;
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => { toast.hidden = true; }, 3800);
+    }
+
+    function members() {
+      return [...memberList.querySelectorAll('.member-card')];
+    }
+
+    function refreshMemberChoices() {
+      const previousFeedSelection = new Set([...feedMembers.querySelectorAll('input:checked')].map((input) => input.value));
+      const previousChoreSelection = new Set([...choreMembers.querySelectorAll('input:checked')].map((input) => input.value));
+      feedMembers.replaceChildren();
+      choreMembers.replaceChildren();
+      members().forEach((card) => {
+        const input = card.querySelector('[data-field="name"]');
+        const id = card.dataset.memberId;
+        const name = input.value.trim() || (card.dataset.kind === 'adult' ? 'Adult' : 'Child');
+        const title = `${name} (${card.dataset.kind})`;
+        [[feedMembers, previousFeedSelection], [choreMembers, previousChoreSelection]].forEach(([container, previous]) => {
+          const label = document.createElement('label');
+          label.className = 'check-chip';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = id;
+          checkbox.checked = previous.has(id);
+          checkbox.dataset.memberName = name;
+          const text = document.createElement('span');
+          text.textContent = title;
+          label.append(checkbox, text);
+          container.append(label);
+        });
+      });
+      const empty = members().length === 0;
+      if (empty) {
+        feedMembers.textContent = 'Add household members first.';
+        choreMembers.textContent = 'Add household members first.';
+      }
+      refreshPickupAdultChoices();
+      refreshMemberPresentation();
+    }
+
+    function refreshPickupAdultChoices() {
+      const adults = members().filter((card) => card.dataset.kind === 'adult');
+      memberList.querySelectorAll('[data-field="pickupAdult"], [data-field="dropoffAdult"]').forEach((select) => {
+        const selectedId = select.value;
+        select.replaceChildren(new Option(adults.length ? 'Choose an adult…' : 'Add an adult profile first…', ''));
+        adults.forEach((adult) => {
+          const adultName = adult.querySelector('[data-field="name"]').value.trim() || 'Unnamed adult';
+          select.add(new Option(adultName, adult.dataset.memberId));
+        });
+        select.value = adults.some((adult) => adult.dataset.memberId === selectedId) ? selectedId : '';
+        select.disabled = adults.length === 0;
+      });
+    }
+
+    function refreshMemberPresentation() {
+      const adultCards = members().filter((card) => card.dataset.kind === 'adult');
+      const checkedOwner = memberList.querySelector('[name="householdOwner"]:checked');
+      adultCards.forEach((card) => {
+        const ownerChoice = card.querySelector('.owner-choice');
+        const removeButton = card.querySelector('.remove-button');
+        ownerChoice.hidden = adultCards.length < 2;
+        removeButton.hidden = adultCards.length < 2;
+        const subtitle = card.querySelector('.member-subtitle');
+        subtitle.textContent = card.dataset.memberId === checkedOwner?.value
+          ? 'Adult · household owner'
+          : 'Adult · household member';
+      });
+      members().filter((card) => card.dataset.kind === 'child').forEach((card) => {
+        card.querySelector('.remove-button').hidden = false;
+      });
+    }
+
+    function updateMemberLabel(card) {
+      const name = card.querySelector('[data-field="name"]').value.trim();
+      const isAdult = card.dataset.kind === 'adult';
+      card.querySelector('.member-name').textContent = name || (isAdult ? 'New adult' : 'New child');
+      card.querySelector('.avatar').textContent = name ? name.charAt(0).toLocaleUpperCase() : (isAdult ? 'A' : 'K');
+      refreshMemberChoices();
+    }
+
+    function addMember(kind, name = '') {
+      const templateId = kind === 'adult' ? '#adult-template' : '#child-template';
+      const fragment = document.querySelector(templateId).content.cloneNode(true);
+      const card = fragment.querySelector('.member-card');
+      card.dataset.memberId = `member-${++nextMemberId}`;
+      const nameInput = card.querySelector('[data-field="name"]');
+      nameInput.value = name;
+      card.querySelectorAll('.field').forEach((field, index) => {
+        const label = field.querySelector(':scope > label:not(.chore-rule-head)');
+        const control = field.querySelector(':scope > input, :scope > select, :scope > .unit-input > input');
+        if (label && control) {
+          const controlId = `${card.dataset.memberId}-field-${index}`;
+          control.id = controlId;
+          label.htmlFor = controlId;
+        }
+      });
+      if (kind === 'adult') {
+        const ownerRadio = card.querySelector('[name="householdOwner"]');
+        ownerRadio.value = card.dataset.memberId;
+        ownerRadio.checked = members().filter((member) => member.dataset.kind === 'adult').length === 0;
+      }
+      nameInput.addEventListener('input', () => updateMemberLabel(card));
+      card.querySelectorAll('[name="householdOwner"]').forEach((radio) => {
+        radio.addEventListener('change', refreshMemberPresentation);
+      });
+      card.querySelector('.details-toggle').addEventListener('click', (event) => {
+        const button = event.currentTarget;
+        const details = card.querySelector('.member-details');
+        details.hidden = !details.hidden;
+        button.setAttribute('aria-expanded', String(!details.hidden));
+        button.textContent = details.hidden ? 'Show settings' : 'Hide settings';
+      });
+      card.querySelector('.remove-button').addEventListener('click', () => {
+        const wasOwner = card.querySelector('[name="householdOwner"]:checked');
+        card.remove();
+        if (wasOwner) {
+          const nextAdult = members().find((member) => member.dataset.kind === 'adult');
+          if (nextAdult) nextAdult.querySelector('[name="householdOwner"]').checked = true;
+        }
+        refreshMemberChoices();
+      });
+      memberList.append(fragment);
+      updateMemberLabel(card);
+    }
+
+    function addFirstAdult() {
+      const adult = members().find((card) => card.dataset.kind === 'adult');
+      const adultName = adult?.querySelector('[data-field="name"]');
+      if (!adultName?.value.trim()) {
+        adultName?.focus();
+        showToast('Add the adult’s name before continuing.');
+        return;
+      }
+      firstAdultAdded = true;
+      firstAdultActions.hidden = true;
+      memberActions.hidden = false;
+      calendarSection.hidden = false;
+      calendarStep.hidden = false;
+      reviewActions.hidden = false;
+      document.querySelector('#members-title').textContent = 'Your family';
+      document.querySelector('#members-title').nextElementSibling.textContent = 'Add another adult or include children in the household.';
+      document.querySelector('.draft-state').textContent = 'Adult added to setup draft';
+      showToast('Adult added to the setup draft. Add family members or calendars next.');
+      memberActions.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function renderFeed(feed) {
+      const row = document.createElement('div');
+      row.className = 'feed-row';
+      row.dataset.feedId = feed.id;
+      const icon = document.createElement('span');
+      icon.className = 'feed-icon';
+      icon.textContent = feed.type === 'Waste collection' ? 'BIN' : feed.type.split(/\s|\//)[0].slice(0, 3).toUpperCase();
+      const text = document.createElement('div');
+      const title = document.createElement('div');
+      title.className = 'feed-title';
+      title.textContent = feed.name;
+      const meta = document.createElement('div');
+      meta.className = 'feed-meta';
+      meta.textContent = `${feed.type} · subscription configured`;
+      text.append(title, meta);
+      if (feed.members.length) {
+        const assigned = document.createElement('div');
+        assigned.className = 'feed-assignees';
+        assigned.textContent = `Related to: ${feed.members.join(', ')}`;
+        text.append(assigned);
+      }
+      if (feed.choreEnabled) {
+        const task = document.createElement('div');
+        task.className = 'feed-assignees';
+        task.textContent = `Creates a linked chore${feed.choreMembers.length ? ` for ${feed.choreMembers.join(', ')}` : ''}`;
+        text.append(task);
+      }
+      const badge = document.createElement('span');
+      badge.className = 'read-only';
+      badge.textContent = 'READ ONLY';
+      row.append(icon, text, badge);
+      row.dataset.choreRule = String(feed.choreEnabled);
+      feedList.append(row);
+      document.querySelector('#empty-feeds').hidden = true;
+    }
+
+    function addFeed() {
+      const nameInput = document.querySelector('#feed-name');
+      const urlInput = document.querySelector('#feed-url');
+      const name = nameInput.value.trim();
+      const url = urlInput.value.trim();
+      const type = document.querySelector('#feed-type').value;
+      if (!name) {
+        nameInput.setCustomValidity('Enter a name for this calendar.');
+        nameInput.reportValidity();
+        nameInput.addEventListener('input', () => nameInput.setCustomValidity(''), { once: true });
+        return;
+      }
+      if (!/^(https?:|webcal:)/i.test(url)) {
+        urlInput.setCustomValidity('Enter a valid https:// or webcal:// calendar link.');
+        urlInput.reportValidity();
+        urlInput.addEventListener('input', () => urlInput.setCustomValidity(''), { once: true });
+        return;
+      }
+      const selected = [...feedMembers.querySelectorAll('input:checked')];
+      const choreSelected = type === 'Waste collection' && choreToggle.checked;
+      const assigned = choreSelected ? [...choreMembers.querySelectorAll('input:checked')] : [];
+      const feed = {
+        id: `feed-${Date.now()}-${setupCalendars.length}`,
+        name,
+        type,
+        url,
+        members: selected.map((input) => input.dataset.memberName),
+        memberClientIds: selected.map((input) => input.value),
+        choreEnabled: choreSelected,
+        choreMembers: assigned.map((input) => input.dataset.memberName),
+        choreAssigneeClientIds: assigned.map((input) => input.value)
+      };
+      setupCalendars.push(feed);
+      renderFeed(feed);
+      nameInput.value = '';
+      urlInput.value = '';
+      feedMembers.querySelectorAll('input').forEach((input) => { input.checked = false; });
+      choreToggle.checked = false;
+      choreMembers.querySelectorAll('input').forEach((input) => { input.checked = false; });
+      choreFields.hidden = document.querySelector('#feed-type').value !== 'Waste collection';
+      showToast('Calendar added to this draft as a read-only source.');
+    }
+
+    function readMember(card) {
+      const value = (field) => card.querySelector(`[data-field="${field}"]`)?.value ?? '';
+      const enumValue = (field) => value(field).replaceAll('-', '_');
+      const checkedDays = (container) => [...container.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value.toLowerCase());
+      const member = {
+        client_id: card.dataset.memberId,
+        role: card.dataset.kind,
+        name: value('name').trim(),
+        profile: { birth_date: value('birthDate') || null }
+      };
+      if (card.dataset.kind === 'adult') {
+        const babysitting = value('babysitting');
+        const notice = { 'same-day': 'same_day', '1-day': 'one_day', '2-days': 'two_days', '1-week': 'one_week' }[value('notice')] || 'not_set';
+        member.profile = {
+          ...member.profile,
+          work_start: value('workStart') || null,
+          work_end: value('workEnd') || null,
+          commute_minutes: value('commute') === '' ? null : Number(value('commute')),
+          evening_weekend_availability: enumValue('care'),
+          focus_start: value('focusStart') || null,
+          focus_end: value('focusEnd') || null,
+          babysitting_max_evenings: babysitting === 'not-set' ? null : Number(babysitting),
+          babysitting_notice: notice,
+          work_days: Object.fromEntries([...card.querySelectorAll('[data-weekdays] select')].map((select) => [
+            select.getAttribute('aria-label').split(' ')[0].toLowerCase(), select.value.toLowerCase()
+          ]))
+        };
+      } else {
+        const sections = card.querySelectorAll('.member-subsection');
+        const activityName = value('activity').trim();
+        member.profile = {
+          ...member.profile,
+          school_or_care_name: value('school').trim() || null,
+          school_type_or_year: value('schoolYear').trim() || null,
+          after_school_care: enumValue('afterCare'),
+          pickup_time: value('pickup') || null,
+          supervision_policy: enumValue('supervision'),
+          travel_minutes: value('travel') === '' ? null : Number(value('travel')),
+          care_days: checkedDays(sections[0]),
+          pickup_adult_client_ids: value('pickupAdult') ? [value('pickupAdult')] : [],
+          dropoff_adult_client_ids: value('dropoffAdult') ? [value('dropoffAdult')] : [],
+          activities: activityName ? [{
+            name: activityName,
+            location: value('activityLocation').trim() || null,
+            start_time: value('activityStart') || null,
+            end_time: value('activityEnd') || null,
+            days: checkedDays(sections[1].querySelector('.field.wide'))
+          }] : []
+        };
+      }
+      return member;
+    }
+
+    function buildSetupPayload() {
+      const countryCode = document.querySelector('#country').value;
+      const owner = document.querySelector('[name="householdOwner"]:checked');
+      return {
+        household: {
+          name: document.querySelector('#household-name').value.trim(),
+          timezone: document.querySelector('#timezone').value,
+          country_code: countryCode === 'other' ? null : countryCode,
+          region: document.querySelector('#region').value.trim() || null
+        },
+        owner_client_id: owner.value,
+        members: members().map(readMember),
+        calendars: setupCalendars.map((feed) => ({
+          client_id: feed.id,
+          name: feed.name,
+          category: feed.type,
+          subscription_url: feed.url,
+          member_client_ids: feed.memberClientIds,
+          chore_enabled: feed.choreEnabled,
+          chore_title: feed.choreEnabled ? `Prepare for ${feed.name}` : null,
+          chore_assignee_client_ids: feed.choreAssigneeClientIds
+        }))
+      };
+    }
+
+    async function saveSetup(button) {
+      if (location.protocol !== 'http:' && location.protocol !== 'https:') {
+        showToast('Open this page from the Chit local server before saving.');
+        return;
+      }
+      if (setupSaved) {
+        showToast('This household is already saved. Editing saved households is not available yet.');
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'Saving…';
+      try {
+        const response = await fetch('/api/households/setup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': sessionStorage.getItem('chit_csrf') || '' },
+          body: JSON.stringify(buildSetupPayload())
+        });
+        const responseText = await response.text();
+        let result;
+        try {
+          result = JSON.parse(responseText);
+        } catch {
+          throw new Error('The save URL returned a web page instead of the Chit API. Open http://127.0.0.1:8765/dashboard/household-setup.html and try again.');
+        }
+        if (response.status === 401) {
+          sessionStorage.removeItem('chit_csrf');
+          location.replace('/login.html?next=%2Fdashboard%2Fhousehold-setup.html');
+          return;
+        }
+        if (!response.ok) throw new Error(result.error || 'Household setup could not be saved.');
+        setupSaved = true;
+        button.textContent = 'Saved';
+        document.querySelector('#save-note').textContent = 'Saved to the encrypted local household database.';
+        document.querySelector('.draft-state').textContent = 'Household saved';
+        document.querySelectorAll('#household-form input, #household-form select, #household-form button').forEach((control) => {
+          control.disabled = true;
+        });
+        showToast('Household setup saved successfully.');
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = 'Save household setup';
+        showToast(error instanceof TypeError
+          ? 'Could not reach the local Chit server. Check that it is running.'
+          : error.message);
+      }
+    }
+
+    document.querySelector('#add-first-adult').addEventListener('click', addFirstAdult);
+    document.querySelector('#add-adult').addEventListener('click', () => addMember('adult'));
+    document.querySelector('#add-child').addEventListener('click', () => addMember('child'));
+    document.querySelector('#add-feed').addEventListener('click', addFeed);
+    document.querySelector('#feed-type').addEventListener('change', (event) => {
+      choreFields.hidden = event.currentTarget.value !== 'Waste collection';
+    });
+    document.querySelector('#sign-out').addEventListener('click', async () => {
+      const csrf = sessionStorage.getItem('chit_csrf') || '';
+      await fetch('/api/auth/logout', {method:'POST', headers:{'X-CSRF-Token':csrf}}).catch(() => {});
+      sessionStorage.removeItem('chit_csrf');
+      location.replace('/login.html');
+    });
+    document.querySelector('#household-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!firstAdultAdded) {
+        addFirstAdult();
+        return;
+      }
+      const householdName = document.querySelector('#household-name');
+      if (!householdName.value.trim()) {
+        householdName.focus();
+        showToast('Add a name for this household before reviewing the setup.');
+        return;
+      }
+      const adults = members().filter((member) => member.dataset.kind === 'adult');
+      if (adults.length === 0) {
+        showToast('Add at least one adult before reviewing the household.');
+        document.querySelector('#members').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      const owner = document.querySelector('[name="householdOwner"]:checked');
+      if (!owner) {
+        showToast('Choose one adult as the household owner.');
+        document.querySelector('#members').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      const missingName = members().find((member) => !member.querySelector('[data-field="name"]').value.trim());
+      if (missingName) {
+        missingName.querySelector('[data-field="name"]').focus();
+        showToast('Add a name to each family member profile.');
+        return;
+      }
+      const choreCount = feedList.querySelectorAll('[data-chore-rule="true"]').length;
+      const personCount = members().length;
+      const button = reviewActions.querySelector('button[type="submit"]');
+      button.dataset.memberCount = String(personCount);
+      button.dataset.choreCount = String(choreCount);
+      await saveSetup(button);
+    });
+
+    addMember('adult');
+    refreshMemberChoices();
+  </script>
+  <script type="module" src="../js/components/chit-ribbon.js"></script>
+</body>
+</html>

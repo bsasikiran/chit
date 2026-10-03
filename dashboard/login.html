@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chit | Sign in</title>
+  <style>
+    :root { color-scheme:light; --ink:#20332e; --muted:#697873; --line:#d9e1dc; --paper:#fbfaf6; --surface:#fffefa; --green:#276957; --green-dark:#194c40; --mint:#e5f0e8; --coral:#c75e45; }
+    * { box-sizing:border-box; }
+    body { min-height:100vh; margin:0; display:grid; place-items:center; padding:24px; color:var(--ink); background-color:var(--paper); background-image:linear-gradient(rgba(39,105,87,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(39,105,87,.035) 1px,transparent 1px); background-size:28px 28px; font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .signin { width:min(430px,100%); padding:34px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 16px 45px rgba(34,57,48,.07); }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom:36px; font-weight:800; }
+    .mark { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; color:white; background:var(--green); font:700 17px Georgia,serif; }
+    .eyebrow { margin-bottom:7px; color:var(--coral); font-size:11px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { margin:0 0 8px; font:500 34px/1.1 Georgia,"Times New Roman",serif; }
+    .intro { margin:0 0 25px; color:var(--muted); font-size:13px; }
+    .field { position:relative; margin-bottom:14px; }
+    .field label { position:absolute; top:5px; left:12px; color:var(--muted); font-size:10px; font-weight:750; }
+    input { width:100%; min-height:54px; padding:22px 12px 8px; border:1px solid #cbd6cf; border-radius:9px; color:var(--ink); background:white; font:inherit; }
+    input:focus,button:focus-visible { outline:3px solid rgba(39,105,87,.28); outline-offset:2px; }
+    button { width:100%; min-height:46px; border:0; border-radius:9px; color:white; background:var(--green); font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; }
+    button:hover { background:var(--green-dark); }
+    button:disabled { opacity:.65; cursor:wait; }
+    .error { margin:14px 0 0; padding:10px 12px; border-left:3px solid var(--coral); color:#843e30; background:#fbefea; font-size:12px; }
+    .error[hidden] { display:none; }
+    .privacy { margin:18px 0 0; color:var(--muted); font-size:11px; }
+    .bootstrap { margin-top:15px; padding:12px; border-radius:8px; color:#65592f; background:#fff8e6; font-size:12px; }
+    .bootstrap code { display:block; margin-top:6px; overflow-wrap:anywhere; color:var(--ink); }
+    .bootstrap[hidden] { display:none; }
+    @media(max-width:480px) { .signin { padding:27px 22px; } }
+  </style>
+</head>
+<body>
+  <main class="signin">
+    <div class="brand"><span class="mark" aria-hidden="true">c</span><span>chit <span style="font-weight:500;color:var(--muted)">/ household</span></span></div>
+    <div class="eyebrow">Local owner account</div>
+    <h1>Sign in</h1>
+    <p class="intro">Sign in to manage household details and view its calendar.</p>
+    <form id="login-form">
+      <div class="field"><label for="username">Username</label><input id="username" name="username" autocomplete="username" required autofocus></div>
+      <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+      <button type="submit">Sign in</button>
+      <p class="error" id="error" role="alert" hidden></p>
+    </form>
+    <div class="bootstrap" id="bootstrap" hidden>Owner login has not been initialized. Run this once in the project terminal:<code>PYTHONPATH=server python server/bootstrap_owner.py</code></div>
+    <p class="privacy">Sign-in credentials are checked locally. Calendar subscriptions are fetched by Chit and never exposed to the browser.</p>
+  </main>
+  <script>
+    const form = document.querySelector('#login-form');
+    const button = form.querySelector('button');
+    const error = document.querySelector('#error');
+    fetch('/api/auth/status', {cache:'no-store'}).then((response) => response.json()).then((status) => {
+      document.querySelector('#bootstrap').hidden = status.configured;
+    }).catch(() => {});
+    function nextPage() {
+      const requested = new URLSearchParams(location.search).get('next');
+      return ['/dashboard/household-setup.html', '/dashboard/calendar-home.html'].includes(requested)
+        ? requested
+        : '/dashboard/calendar-home.html';
+    }
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      button.disabled = true;
+      button.textContent = 'Signing in…';
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({username:form.username.value, password:form.password.value})
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || 'Sign-in failed.');
+        sessionStorage.setItem('chit_csrf', payload.csrf_token);
+        location.replace(nextPage());
+      } catch (exception) {
+        error.textContent = exception instanceof TypeError
+          ? 'Could not reach Chit. Make sure the local server is running.'
+          : exception.message;
+        error.hidden = false;
+        button.disabled = false;
+        button.textContent = 'Sign in';
+      }
+    });
+  </script>
+</body>
+</html>

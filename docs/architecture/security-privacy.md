@@ -18,9 +18,13 @@
 
 ## Controls
 
-- Authenticate administrative and sensitive routes.
-- Authorise every protected read and configuration change.
+- Authenticate setup, household calendar and their APIs with the single local owner account described in [ADR-0005](adr/0005-local-single-owner-authentication.md).
+- Store owner passwords as Argon2id hashes; use opaque expiring sessions, HttpOnly/SameSite cookies, same-origin login checks, CSRF validation on writes, and throttled login attempts.
+- Keep the pilot HTTP service loopback-only. Do not expose it to the LAN or public internet; this authentication slice does not provide TLS, multi-user authorization or account recovery.
+- The single owner account currently authenticates the local installation; it does not implement separate household/member grants. Add those before multiple accounts or households are exposed to different people.
+- Authorise every protected read and configuration change according to the current local-owner boundary.
 - Redact or aggregate sensitive fields before generating shared-display responses.
+- Encrypt the SQLite database at rest. Protect backups and other persisted household files under the same storage/retention design; define key provisioning and lifecycle before implementation.
 - Encrypt secrets at rest and transport data over authenticated encrypted channels.
 - Avoid logging tokens, private event details, health information or full provider payloads.
 - Record configuration and permission changes in an audit log.
@@ -31,6 +35,7 @@ The safe projection may show that a person is busy while hiding event title, loc
 
 ## Threats to test
 
+- Database, backup or attachment disclosure, including key exposure and restore paths
 - Cross-household and cross-member access
 - Stale cache revealing revoked information
 - Connector over-permissioning

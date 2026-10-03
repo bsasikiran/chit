@@ -21,6 +21,14 @@ paths:
                   status:
                     type: string
                     enum: [healthy, degraded]
+  /home/summary:
+    get:
+      operationId: getHomeSummary
+      description: Returns the latest household summary including members and their roles.
+      responses:
+        '200':
+          description: Household summary
+        '401': { description: Authentication required }
   /households/{householdId}/dashboard:
     get:
       operationId: getDashboard

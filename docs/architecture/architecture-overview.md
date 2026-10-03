@@ -40,7 +40,7 @@
 - **Home Assistant**: Smart home automation and device integration
 - **OpenClaw**: Local LLM inference and AI processing
 - **HTTP Container**: Hosts HTML/JS pages and dashboard interface
-- **Lite Database**: Lightweight local datastore for structured data
+- **SQLite**: Embedded relational datastore for Chit's structured local data, encrypted at rest
 
 ### Work Mac
 
@@ -143,7 +143,7 @@ Local Hardware          Cloud Services
 | **Smart Home** | Home Assistant |
 | **Media** | Plex |
 | **Web Server** | HTTP container (HTML/JS) |
-| **Database** | Lite Database (local) |
+| **Database** | SQLite (local, encrypted at rest) |
 | **Display** | Raspberry Pi + TV |
 | **Compute** | Mac Mini (primary), Work Mac (intensive tasks) |
 
@@ -168,5 +168,7 @@ This overview describes the broader intended ecosystem. The approved first-pilot
 ## Pilot architecture boundary
 
 The first pilot consists of connector adapters, a normalized household data layer, read-only insight services, an API/presentation policy layer and a shared dashboard. Home Assistant remains an optional read-only integration boundary. Messaging and specialist agents remain outside the first pilot.
+
+The local persistence choice and encryption requirement are recorded in [ADR-0004](adr/0004-sqlite-encrypted-local-storage.md). Application authentication and authorization design remain separate decisions.
 
 See the architecture-as-code files under `docs/architecture/diagrams/` and machine-readable contracts under `docs/specifications/`.
