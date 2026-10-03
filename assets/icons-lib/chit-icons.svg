@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<symbol id="home" viewBox="0 0 24 24"><title>Home</title><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="settings" viewBox="0 0 24 24"><title>Settings</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="calendar" viewBox="0 0 24 24"><title>Calendar</title><path d="M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 5h14M8 2v4m8-4v4"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><title>Clock</title><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-14v5l3.5 2"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><title>Notifications</title><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Zm-8 12h4"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><title>Search</title><path d="m21 21-4.3-4.3M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><title>Add</title><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="living-room" viewBox="0 0 24 24"><title>Living room</title><path d="M4 12h16v7H4zm3 0V9h10v3m-9 7v2m8-2v2"/></symbol>
+<symbol id="bedroom" viewBox="0 0 24 24"><title>Bedroom</title><path d="M3 14h18v5H3zm3 0v-3h5a3 3 0 0 1 3 3"/></symbol>
+<symbol id="kitchen" viewBox="0 0 24 24"><title>Kitchen</title><path d="M4 4h16v16H4zm3 3h10m-8 4h6m-6 4h6"/></symbol>
+<symbol id="bathroom" viewBox="0 0 24 24"><title>Bathroom</title><path d="M5 12h14v7H5zm2-4h10v4M8 5h.01"/></symbol>
+<symbol id="office" viewBox="0 0 24 24"><title>Office</title><path d="M4 8h16v12H4zm5 0V5h6v3m-3 5h.01"/></symbol>
+<symbol id="garage" viewBox="0 0 24 24"><title>Garage</title><path d="M3 10 12 4l9 6v10H3zm4 3h10v7H7zm0 3h10"/></symbol>
+<symbol id="garden" viewBox="0 0 24 24"><title>Garden</title><path d="M12 21V9m0 5c-4 0-6-2-7-5 4-1 7 1 7 5Zm0-2c3-4 6-4 8-2-1 4-4 5-8 4Z"/></symbol>
+<symbol id="light" viewBox="0 0 24 24"><title>Light</title><path d="M9 18h6m-5 3h4m-2-19a6 6 0 0 0-3.5 10.9V16h7v-3.1A6 6 0 0 0 12 2Z"/></symbol>
+<symbol id="thermostat" viewBox="0 0 24 24"><title>Thermostat</title><path d="M4 4h16v16H4zM8 8h8v8H8z"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><title>Lock</title><path d="M6 11h12v10H6zm3 0V7a3 3 0 1 1 6 0v4m-3 4v2"/></symbol>
+<symbol id="camera" viewBox="0 0 24 24"><title>Camera</title><path d="M4 7h11l2-2h3v14h-3l-2-2H4zM12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></symbol>
+<symbol id="speaker" viewBox="0 0 24 24"><title>Speaker</title><path d="M4 10h4l5-4v12l-5-4H4zm12 0a3 3 0 0 1 0 4m2-7a7 7 0 0 1 0 10"/></symbol>
+<symbol id="tv" viewBox="0 0 24 24"><title>Television</title><path d="M4 6h16v11H4zm5 15h6m-3-4v4"/></symbol>
+<symbol id="plug" viewBox="0 0 24 24"><title>Smart plug</title><path d="M8 3v6m8-6v6M6 8h12v3a6 6 0 0 1-6 6v4m0-4a6 6 0 0 1-6-6V8"/></symbol>
+<symbol id="blinds" viewBox="0 0 24 24"><title>Blinds</title><path d="M4 5h16v14H4zm0 4h16m-16 4h16"/></symbol>
+<symbol id="door" viewBox="0 0 24 24"><title>Door</title><path d="M5 3h12v18H5zm8 9h.01"/></symbol>
+<symbol id="window" viewBox="0 0 24 24"><title>Window</title><path d="M4 4h16v16H4zm8 0v16M4 12h16"/></symbol>
+<symbol id="motion" viewBox="0 0 24 24"><title>Motion sensor</title><path d="M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 0 5 5"/></symbol>
+<symbol id="co2" viewBox="0 0 24 24"><title>Carbon dioxide sensor</title><path d="M5 15c3-7 8 5 14-7M5 19h14"/></symbol>
+<symbol id="smoke" viewBox="0 0 24 24"><title>Smoke detector</title><path d="M6 18c1-2 3 2 5 0s4 2 7-1M6 13c1-2 3 2 5 0s4 2 7-1"/></symbol>
+<symbol id="vacuum" viewBox="0 0 24 24"><title>Robot vacuum</title><path d="M5 14a7 7 0 0 1 14 0v3a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4zm3 0h.01m8 0h.01"/></symbol>
+<symbol id="washer" viewBox="0 0 24 24"><title>Washing machine</title><path d="M4 3h16v18H4zm3 4h.01m3 0h.01M12 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></symbol>
+<symbol id="solar" viewBox="0 0 24 24"><title>Solar generation</title><path d="M4 14h16l-2-7H6zm3 0-1 6m11-6 1 6M12 3v2m7 1-1.5 1.5M5 6l1.5 1.5"/></symbol>
+<symbol id="battery" viewBox="0 0 24 24"><title>Battery storage</title><path d="M5 7h13v10H5zM18 10h2v4h-2zM7 9h7v6H7z"/></symbol>
+<symbol id="grid" viewBox="0 0 24 24"><title>Electricity grid</title><path d="M12 2 5 6v6l7 4 7-4V6zm0 14v6m-4-8-3 5m11-5 3 5"/></symbol>
+<symbol id="power-flow" viewBox="0 0 24 24"><title>Power flow</title><path d="M3 12h16m-4-4 4 4-4 4"/></symbol>
+<symbol id="ev-charger" viewBox="0 0 24 24"><title>EV charger</title><path d="M8 3v6m8-6v6M6 8h12v3a6 6 0 0 1-6 6v4m0-4a6 6 0 0 1-6-6V8"/></symbol>
+<symbol id="heat-pump" viewBox="0 0 24 24"><title>Heat pump</title><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M12 12a2 2 0 1 0 0-.01"/></symbol>
+<symbol id="temperature" viewBox="0 0 24 24"><title>Temperature</title><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0ZM12 18v.01"/></symbol>
+<symbol id="humidity" viewBox="0 0 24 24"><title>Humidity</title><path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.8 6-11 6-11Z"/></symbol>
+<symbol id="fan" viewBox="0 0 24 24"><title>Fan</title><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M12 12a2 2 0 1 0 0-.01"/></symbol>
+<symbol id="air-quality" viewBox="0 0 24 24"><title>Air quality</title><path d="M5 15c3-7 8 5 14-7M5 19h14"/></symbol>
+<symbol id="wind" viewBox="0 0 24 24"><title>Wind</title><path d="M4 4h16v16H4zM8 8h8v8H8z"/></symbol>
+<symbol id="sun" viewBox="0 0 24 24"><title>Sunny</title><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.4 6.4-1.4-1.4M7 7 5.6 5.6m12.8 0L17 7M7 17l-1.4 1.4M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></symbol>
+<symbol id="cloud" viewBox="0 0 24 24"><title>Cloudy</title><path d="M7 18h10a4 4 0 0 0 .3-8A5.5 5.5 0 0 0 6.7 9 4.5 4.5 0 0 0 7 18Z"/></symbol>
+<symbol id="rain" viewBox="0 0 24 24"><title>Rain</title><path d="M7 18h10a4 4 0 0 0 .3-8A5.5 5.5 0 0 0 6.7 9 4.5 4.5 0 0 0 7 18ZM8 20v1m4-1v1m4-1v1"/></symbol>
+<symbol id="snow" viewBox="0 0 24 24"><title>Snow</title><path d="M12 2v20M4 7l16 10M20 7 4 17"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><title>Security</title><path d="M12 3 20 6v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6zM9 12l2 2 4-4"/></symbol>
+<symbol id="alarm" viewBox="0 0 24 24"><title>Alarm</title><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Zm-8 12h4"/></symbol>
+<symbol id="key" viewBox="0 0 24 24"><title>Key</title><path d="M7 14a5 5 0 1 1 3.8-1.8L21 12v4h-3v2h-3v-3l-4.2-1.2A5 5 0 0 1 7 14Z"/></symbol>
+<symbol id="fingerprint" viewBox="0 0 24 24"><title>Fingerprint</title><path d="M8 9a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0V9Zm-4 0V5h4m8 0h4v4m0 6v4h-4M8 19H4v-4"/></symbol>
+<symbol id="face-id" viewBox="0 0 24 24"><title>Face identification</title><path d="M8 9a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0V9Zm-4 0V5h4m8 0h4v4m0 6v4h-4M8 19H4v-4"/></symbol>
+<symbol id="wifi" viewBox="0 0 24 24"><title>Wi-Fi</title><path d="M3 9a13 13 0 0 1 18 0M6 12a9 9 0 0 1 12 0m-9 3a5 5 0 0 1 6 0m-3 4h.01"/></symbol>
+<symbol id="network" viewBox="0 0 24 24"><title>Network</title><path d="M12 3v18M4 7l8-4 8 4M4 17l8 4 8-4M4 7v10m16-10v10"/></symbol>
+<symbol id="backup" viewBox="0 0 24 24"><title>Backup</title><path d="M4 12a8 8 0 1 1 2.3 5.7M4 17v-5h5"/></symbol>
+<symbol id="update" viewBox="0 0 24 24"><title>System update</title><path d="M4 12a8 8 0 1 1 2.3 5.7M4 17v-5h5"/></symbol>
+<symbol id="schedule" viewBox="0 0 24 24"><title>Schedule</title><path d="M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 5h14M8 2v4m8-4v4"/></symbol>
+<symbol id="task" viewBox="0 0 24 24"><title>Task</title><path d="M5 4h14v17H5zm4 5h6m-6 4h6m-6 4h4"/></symbol>
+<symbol id="task-complete" viewBox="0 0 24 24"><title>Completed task</title><path d="M5 12l4 4L19 6"/></symbol>
+<symbol id="task-overdue" viewBox="0 0 24 24"><title>Overdue task</title><path d="M12 3 22 21H2Zm0 6v5m0 3h.01"/></symbol>
+<symbol id="reminder" viewBox="0 0 24 24"><title>Reminder</title><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Zm-8 12h4"/></symbol>
+<symbol id="appointment" viewBox="0 0 24 24"><title>Appointment</title><path d="M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 5h14M8 2v4m8-4v4"/></symbol>
+<symbol id="chore" viewBox="0 0 24 24"><title>Chore assignment</title><path d="M5 4h14v17H5zm4 5h6m-6 4h6m-6 4h4"/></symbol>
+<symbol id="shared-event" viewBox="0 0 24 24"><title>Shared event</title><path d="M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 5h14M8 2v4m8-4v4"/></symbol>
+<symbol id="person" viewBox="0 0 24 24"><title>Person</title><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/></symbol>
+<symbol id="family" viewBox="0 0 24 24"><title>Family</title><path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8-1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM2.5 21a5.5 5.5 0 0 1 11 0m1-1a5.5 5.5 0 0 1 7 1"/></symbol>
+<symbol id="profile" viewBox="0 0 24 24"><title>Profile</title><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0"/></symbol>
+<symbol id="work" viewBox="0 0 24 24"><title>Work</title><path d="M4 8h16v12H4zm5 0V5h6v3m-3 5h.01"/></symbol>
+<symbol id="school" viewBox="0 0 24 24"><title>School</title><path d="M3 10 12 5l9 5-9 5zm4 3v4c3 2 7 2 10 0v-4"/></symbol>
+<symbol id="gym" viewBox="0 0 24 24"><title>Gym</title><path d="M4 10v4m3-6v8m10-8v8m3-6v4M7 12h10"/></symbol>
+<symbol id="commuting" viewBox="0 0 24 24"><title>Commuting</title><path d="M4 4h16v16H4zM8 8h8v8H8z"/></symbol>
+<symbol id="car" viewBox="0 0 24 24"><title>Car</title><path d="M5 16 6.5 9h11L19 16M4 16h16v3H4zm3 3v2m10-2v2M8 16h.01m8 0h.01"/></symbol>
+<symbol id="bike" viewBox="0 0 24 24"><title>Bicycle</title><path d="M6 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm12 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 16l4-8h3l3 8m-6-8 2 4h4l-2-4m-2-3h.01"/></symbol>
+<symbol id="walk" viewBox="0 0 24 24"><title>Walking</title><path d="M13 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-2 17 1-6-3-3 2-4 2 2 3 1m-4 4 4 2 1 4"/></symbol>
+<symbol id="arrival" viewBox="0 0 24 24"><title>Arriving</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 12h10m-3-3 3 3-3 3"/></symbol>
+<symbol id="departure" viewBox="0 0 24 24"><title>Leaving</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM20 12H10m3-3-3 3 3 3"/></symbol>
+<symbol id="location" viewBox="0 0 24 24"><title>Location</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></symbol>
+<symbol id="location-hidden" viewBox="0 0 24 24"><title>Hidden location</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 4l16 16"/></symbol>
+<symbol id="eta" viewBox="0 0 24 24"><title>Estimated arrival</title><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-14v5l3.5 2"/></symbol>
+<symbol id="guest" viewBox="0 0 24 24"><title>Guest access</title><path d="M7 14a5 5 0 1 1 3.8-1.8L21 12v4h-3v2h-3v-3l-4.2-1.2A5 5 0 0 1 7 14Z"/></symbol>
+<symbol id="heart-rate" viewBox="0 0 24 24"><title>Heart rate</title><path d="M3 12h4l2-4 3 8 2-4h7M12 21S4 16.3 4 10.4A4.4 4.4 0 0 1 12 8a4.4 4.4 0 0 1 8 2.4C20 16.3 12 21 12 21Z"/></symbol>
+<symbol id="sleep" viewBox="0 0 24 24"><title>Sleep</title><path d="M3 14h18v5H3zm3 0v-3h5a3 3 0 0 1 3 3"/></symbol>
+<symbol id="steps" viewBox="0 0 24 24"><title>Steps</title><path d="M4 18 9 12l3 3 7-9M4 6v12h16"/></symbol>
+<symbol id="stress" viewBox="0 0 24 24"><title>Stress</title><path d="M12 21S4 16.3 4 10.4A4.4 4.4 0 0 1 12 8a4.4 4.4 0 0 1 8 2.4C20 16.3 12 21 12 21Z"/></symbol>
+<symbol id="blood-oxygen" viewBox="0 0 24 24"><title>Blood oxygen</title><path d="M12 21S4 16.3 4 10.4A4.4 4.4 0 0 1 12 8a4.4 4.4 0 0 1 8 2.4C20 16.3 12 21 12 21Z"/></symbol>
+<symbol id="health-trend" viewBox="0 0 24 24"><title>Health trend</title><path d="M4 18 9 12l3 3 7-9M4 6v12h16"/></symbol>
+<symbol id="workout" viewBox="0 0 24 24"><title>Workout</title><path d="M4 10v4m3-6v8m10-8v8m3-6v4M7 12h10"/></symbol>
+<symbol id="wellbeing" viewBox="0 0 24 24"><title>Wellbeing check</title><path d="M12 21S4 16.3 4 10.4A4.4 4.4 0 0 1 12 8a4.4 4.4 0 0 1 8 2.4C20 16.3 12 21 12 21Z"/></symbol>
+<symbol id="health-private" viewBox="0 0 24 24"><title>Private health data</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 4l16 16"/></symbol>
+<symbol id="scene" viewBox="0 0 24 24"><title>Scene</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="trigger" viewBox="0 0 24 24"><title>Trigger</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="action" viewBox="0 0 24 24"><title>Action</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="routine" viewBox="0 0 24 24"><title>Routine</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="automation" viewBox="0 0 24 24"><title>Automation</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="suggestion" viewBox="0 0 24 24"><title>Smart suggestion</title><path d="M9 18h6m-5 3h4m-2-19a6 6 0 0 0-3.5 10.9V16h7v-3.1A6 6 0 0 0 12 2Z"/></symbol>
+<symbol id="flow" viewBox="0 0 24 24"><title>Automation flow</title><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm8.2-3.2 1.4-1-1.6-2.8-1.7.7a7.8 7.8 0 0 0-1.4-.8L16.7 6h-3.2l-.3 2.1a7.8 7.8 0 0 0-1.4.8l-1.7-.7L8.5 11l1.4 1a7 7 0 0 0 0 1.7l-1.4 1 1.6 2.8 1.7-.7c.4.3.9.6 1.4.8l.3 2.1h3.2l.3-2.1c.5-.2 1-.5 1.4-.8l1.7.7 1.6-2.8-1.4-1a7 7 0 0 0 0-1.7Z"/></symbol>
+<symbol id="success" viewBox="0 0 24 24"><title>Success</title><path d="M5 12l4 4L19 6"/></symbol>
+<symbol id="warning" viewBox="0 0 24 24"><title>Warning</title><path d="M12 3 22 21H2Zm0 6v5m0 3h.01"/></symbol>
+<symbol id="critical" viewBox="0 0 24 24"><title>Critical</title><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><title>Information</title><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-11v6m0-10h.01"/></symbol>
+<symbol id="offline" viewBox="0 0 24 24"><title>Offline</title><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="online" viewBox="0 0 24 24"><title>Online</title><path d="M5 12l4 4L19 6"/></symbol>
+<symbol id="privacy" viewBox="0 0 24 24"><title>Privacy</title><path d="M12 22s7-6.1 7-12A7 7 0 1 0 5 10c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6ZM4 4l16 16"/></symbol>
+</svg>
