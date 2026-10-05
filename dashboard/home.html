@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>శసిరి నిలయం – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- THEME: change 'theme-default' to 'theme-dark' etc. to switch themes -->
+  <link id="theme-css" rel="stylesheet" href="../css/theme-default.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --bg-page: #f5f1e9;
+      --bg-card: #fffdf8;
+      --text-primary: #18313b;
+      --text-secondary: #6c7d80;
+      --accent: #e76f51;
+      --accent-contrast: #fffdf8;
+      --border: #dce3dc;
+      --shadow: 0 8px 26px rgba(24, 49, 59, 0.04);
+      --nav-bg: rgba(255, 253, 248, 0.92);
+      --nav-border: #dce3dc;
+      --teal: #2a9d8f;
+      --yellow: #e9c46a;
+      --green: #56876b;
+    }
+
+    body {
+      background: radial-gradient(circle at 90% 0, #e5efe4 0 16%, transparent 36%), var(--bg-page);
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .top-ribbon { background: var(--bg-card); }
+    .center-nav { top: 72px; }
+    .nav-link:hover, .nav-link.active { background: var(--accent); }
+    .page-content {
+      width: min(100%, 1600px);
+      max-width: 1600px;
+      padding: 1.5rem 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .module {
+      min-width: 0;
+      border-radius: 6px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .module-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .module-head h2 { margin: 0.25rem 0 0; font-size: 1.4rem; font-weight: 500; }
+    .eyebrow, .data-note, .status-label, .card-label, .event-meta {
+      color: var(--text-secondary);
+      font: 600 0.68rem/1.4 system-ui, sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { color: var(--accent); }
+    .data-note { margin-top: 1rem; letter-spacing: 0; text-transform: none; font-weight: 400; }
+    .weather-card { background: linear-gradient(140deg, #fffdf8 55%, #e3eee8); }
+    .weather-card h3 { margin: 1.3rem 0 0.7rem; font-size: 0.8rem; }
+    .weather-now { padding: 0.25rem 0 0.75rem; }
+    .weather-now > div:first-child { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.75rem; }
+    .weather-now > div:first-child > div:first-child { font-size: 3.5rem !important; line-height: 1; }
+    .weather-now > div:first-child > div:nth-child(2) { font-size: 1rem; font-weight: 600; }
+    .weather-now > div:first-child > div:nth-child(3) { flex-basis: 100%; }
+    .hourly-row, .forecast-row, .price-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(3.5rem, 1fr);
+      gap: 0.45rem;
+      overflow-x: auto;
+      padding: 0.2rem 0 0.5rem;
+      scrollbar-color: #b9c9c1 transparent;
+    }
+
+    .hour-point { min-width: 0; padding-top: 0.45rem; border-top: 2px solid var(--yellow); text-align: center; }
+    .hour-point strong, .hour-point span, .forecast-day strong, .forecast-day span { display: block; }
+    .hour-point strong { margin: 0.35rem 0; font-size: 1.1rem; font-weight: 500; }
+    .hour-point span, .forecast-day span { color: var(--text-secondary); font: 0.68rem/1.4 system-ui, sans-serif; }
+    .forecast-row { grid-auto-columns: minmax(4.1rem, 1fr); }
+    .forecast-day { padding: 0.65rem 0.4rem; border-radius: 4px; background: #f1f4ed; text-align: center; }
+    .forecast-day strong { margin-bottom: 0.45rem; font-size: 0.78rem; }
+    .forecast-day .range { margin-top: 0.35rem; color: var(--text-primary); font-weight: 600; }
+    .calendar-card { background: #18313b; color: #fffdf8; }
+    .calendar-card .module-head { border-color: #466069; }
+    .calendar-card .eyebrow, .calendar-card .status-label { color: #a8b9b5; }
+    .calendar-card .module-head h2 { color: #fffdf8; }
+    .calendar-status { padding: 1rem; border-left: 2px solid var(--yellow); background: rgba(255, 253, 248, 0.06); color: #fffdf8; font: 0.9rem/1.5 system-ui, sans-serif; }
+    .calendar-status p + p { margin-top: 0.35rem; color: #a8b9b5; font-size: 0.78rem; }
+    .important-events { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+    .event-tile { min-height: 5rem; padding: 0.65rem; border: 1px solid #466069; border-radius: 4px; }
+    .event-tile strong, .event-tile span { display: block; }
+    .event-tile strong { margin-bottom: 0.35rem; color: #e9c46a; font-size: 0.78rem; }
+    .event-tile span { color: #a8b9b5; font: 0.68rem/1.4 system-ui, sans-serif; }
+    .energy-card { background: var(--bg-card); }
+    .energy-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .energy-stat { min-width: 0; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
+    .energy-stat:first-child { grid-column: 1 / -1; }
+    .energy-stat .card-value { margin-top: 0.25rem; font-size: 1rem; overflow-wrap: anywhere; }
+    .price-chart { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(2.5rem, 1fr); align-items: end; gap: 0.35rem; height: 10rem; overflow-x: auto; padding: 0.5rem 0 1.3rem; border-bottom: 1px solid var(--border); }
+    .price-hour { position: relative; min-width: 0; height: 100%; display: flex; align-items: end; justify-content: center; }
+    .price-bar { width: 70%; min-height: 3px; border-radius: 3px 3px 0 0; background: var(--teal); }
+    .price-hour span { position: absolute; bottom: -1.15rem; color: var(--text-secondary); font: 0.62rem system-ui, sans-serif; }
+    .price-hour strong { position: absolute; top: -0.2rem; color: var(--text-secondary); font: 0.58rem system-ui, sans-serif; white-space: nowrap; }
+    .price-legend { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.6rem; color: var(--text-secondary); font: 0.68rem system-ui, sans-serif; }
+
+    @media (max-width: 1050px) {
+      .page-content { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 1rem; }
+    }
+    @media (max-width: 700px) {
+      .page-content { grid-template-columns: 1fr; padding: 1rem; }
+      .energy-card { grid-column: auto; }
+      .center-nav { top: 0; justify-content: flex-start; }
+      .nav-list { gap: 0.5rem; }
+      .nav-link { padding-inline: 0.45rem; }
+      .important-events { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+  <chit-ribbon active="home"></chit-ribbon>
+
+  <main class="page-content">
+    <section id="weather" class="module weather-card" aria-labelledby="weather-title">
+      <div class="module-head">
+        <div><div class="eyebrow">Weather / today</div><h2 id="weather-title">Local conditions</h2></div>
+        <span class="status-label" id="weather-state">Loading</span>
+      </div>
+      <div id="weather-view" class="weather-now" aria-live="polite"></div>
+      <p class="data-note">Current conditions · Open-Meteo</p>
+      <h3>Next 8 hours <span class="status-label">Forecast</span></h3>
+      <div id="weather-hourly" class="hourly-row" aria-label="Hourly weather forecast"></div>
+      <h3>7-day outlook <span class="status-label">Forecast</span></h3>
+      <div id="weather-week" class="forecast-row" aria-label="Seven-day weather forecast"></div>
+    </section>
+
+    <section id="calendar" class="module calendar-card" aria-labelledby="calendar-title">
+      <div class="module-head">
+        <div><div class="eyebrow">Family calendar</div><h2 id="calendar-title">Upcoming events</h2></div>
+        <span class="status-label">Next 3 days</span>
+      </div>
+      <div id="calendar-view" class="calendar-status" aria-live="polite"></div>
+      <h3>Important this week</h3>
+      <div id="important-events" class="important-events" aria-label="Important events for the week"></div>
+      <p class="data-note">Calendar source · unavailable</p>
+    </section>
+
+    <section id="energy" class="module energy-card" aria-labelledby="energy-title">
+      <div class="module-head">
+        <div><div class="eyebrow">Energy / today</div><h2 id="energy-title">Electricity prices</h2></div>
+        <span class="status-label" id="energy-state">Loading</span>
+      </div>
+      <div class="energy-summary">
+        <div class="energy-stat"><div class="card-label">Current tariff</div><div class="card-value" id="price-current">Unavailable</div></div>
+        <div class="energy-stat"><div class="card-label">Next price</div><div class="card-value" id="price-next">Unavailable</div></div>
+        <div class="energy-stat"><div class="card-label">Today average</div><div class="card-value" id="price-average">Unavailable</div></div>
+      </div>
+      <h3>Today by hour <span class="status-label">Forecast schedule</span></h3>
+      <div id="price-chart" class="price-chart" aria-label="Today's hourly electricity prices"></div>
+      <div class="price-legend"><span>Hourly tariff</span><span id="price-unit">EUR / kWh</span></div>
+      <p class="data-note">Source · Tibber · tariff schedule is forecast data</p>
+    </section>
+  </main>
+
+  <script type="module" src="../js/components/chit-ribbon.js"></script>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chit | Household calendar</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20332e;
+      --muted: #697873;
+      --line: #d9e1dc;
+      --paper: #fbfaf6;
+      --surface: #fffefa;
+      --green: #276957;
+      --green-dark: #194c40;
+      --mint: #e5f0e8;
+      --coral: #c75e45;
+      --yellow: #d5a63b;
+      --blue: #527691;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(rgba(39, 105, 87, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(39, 105, 87, .035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button { font: inherit; cursor: pointer; }
+    .topbar { height: 66px; display:flex; align-items:center; justify-content:space-between; padding: 0 clamp(18px, 5vw, 72px); background:var(--surface); border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; }
+    .brand-mark { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; color:white; background:var(--green); font:700 17px Georgia,serif; }
+    .top-status { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; }
+    .sign-out { margin-left:8px; border:1px solid var(--line); border-radius:8px; padding:6px 10px; color:var(--green-dark); background:white; font-size:11px; font-weight:700; }
+    .status-dot { width:8px; height:8px; border-radius:50%; background:#7d8d86; }
+    .status-dot.ok { background:#4c9a70; }
+    .status-dot.warn { background:var(--yellow); }
+    .shell { width:min(1180px, 100%); margin:0 auto; padding:48px clamp(18px, 5vw, 64px) 70px; }
+    .hero { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; padding-bottom:28px; border-bottom:1px solid var(--ink); }
+    .eyebrow { color:var(--coral); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:8px 0 8px; font:500 clamp(34px, 5vw, 54px)/1.03 Georgia, "Times New Roman", serif; }
+    .lead { max-width:590px; margin:0; color:var(--muted); }
+    .hero-date { min-width:130px; padding-left:18px; border-left:1px solid var(--line); text-align:right; }
+    .hero-date strong { display:block; font:500 25px Georgia,serif; }
+    .hero-date span { color:var(--muted); font-size:12px; }
+    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); }
+    .filters { display:flex; flex-wrap:wrap; gap:6px; }
+    .filter { border:1px solid transparent; border-radius:8px; padding:7px 12px; color:var(--muted); background:transparent; font-size:12px; font-weight:700; }
+    .filter:hover { background:#edf2ed; }
+    .filter.active { border-color:#b8cec1; color:var(--green-dark); background:var(--mint); }
+    .source-line { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:11px; text-align:right; }
+    .source-line strong { color:var(--ink); font-weight:700; }
+    .agenda { margin-top:8px; }
+    .day-group { display:grid; grid-template-columns:120px minmax(0, 1fr); gap:22px; padding:20px 0; border-bottom:1px solid var(--line); }
+    .day-label { padding-top:4px; }
+    .day-label strong { display:block; font:500 20px Georgia,serif; }
+    .day-label span { color:var(--muted); font-size:12px; }
+    .event-list { display:grid; gap:8px; }
+    .event { display:grid; grid-template-columns:72px 4px minmax(0, 1fr) auto; align-items:center; gap:13px; min-height:58px; padding:7px 12px 7px 0; }
+    .event-time { color:var(--muted); font-size:12px; text-align:right; }
+    .event-rule { align-self:stretch; border-radius:4px; background:var(--green); }
+    .event[data-category="waste_collection"] .event-rule { background:var(--coral); }
+    .event[data-category="sport_activity"] .event-rule { background:var(--blue); }
+    .event[data-category="school_care"] .event-rule { background:var(--yellow); }
+    .event-title { font-size:14px; font-weight:750; }
+    .event-meta { color:var(--muted); font-size:11px; }
+    .event-kind { align-self:start; border-radius:7px; padding:4px 8px; color:var(--green-dark); background:var(--mint); font-size:10px; font-weight:800; white-space:nowrap; }
+    .event[data-category="waste_collection"] .event-kind { color:#884432; background:#f8ebe5; }
+    .empty, .problem { margin:28px 0; padding:20px; border-left:3px solid var(--yellow); background:#fff8e6; color:#65592f; }
+    .empty { border-color:#a9c7b4; background:#f3f8f3; color:var(--green-dark); }
+    .loading { padding:28px 0; color:var(--muted); }
+    .footnote { display:flex; justify-content:space-between; gap:16px; margin-top:22px; color:var(--muted); font-size:11px; }
+    .footnote strong { color:var(--ink); }
+    @media (max-width:650px) {
+      .topbar { height:58px; }
+      .shell { padding-top:30px; }
+      .hero { align-items:flex-start; flex-direction:column; gap:14px; }
+      .hero-date { border:0; padding:0; text-align:left; }
+      .toolbar { align-items:flex-start; flex-direction:column; }
+      .source-line { text-align:left; }
+      .day-group { grid-template-columns:1fr; gap:7px; padding:16px 0; }
+      .day-label { display:flex; align-items:baseline; gap:8px; }
+      .event { grid-template-columns:52px 3px minmax(0,1fr); gap:9px; }
+      .event-kind { grid-column:3; justify-self:start; }
+      .footnote { flex-direction:column; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation:none !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">c</span><span>chit <span style="font-weight:500;color:var(--muted)">/ home</span></span></div>
+    <div class="top-status"><span class="status-dot" id="status-dot"></span><span id="connection-label">Checking calendars</span><button class="sign-out" id="sign-out" type="button">Sign out</button></div>
+  </header>
+  <main class="shell">
+    <header class="hero">
+      <div><div class="eyebrow" id="household-eyebrow">Household calendar</div><h1 id="page-title">What’s coming up</h1><p class="lead">A shared view of the dates and commitments from your connected household calendars.</p></div>
+      <div class="hero-date"><strong id="today-date">Today</strong><span id="today-year"></span></div>
+    </header>
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="Agenda range">
+        <button class="filter" type="button" data-days="3">3 days</button>
+        <button class="filter active" type="button" data-days="7">Week</button>
+        <button class="filter" type="button" data-days="21">3 weeks</button>
+      </div>
+      <div class="source-line"><span class="status-dot" id="source-dot"></span><span id="source-summary">Reading connected sources…</span></div>
+    </div>
+    <section id="agenda" class="agenda" aria-live="polite"><div class="loading">Loading read-only calendar events…</div></section>
+    <footer class="footnote"><span>Calendar events are read-only. Source calendars remain authoritative.</span><span id="updated-at">Source update not checked</span></footer>
+  </main>
+  <script>
+    const agenda = document.querySelector('#agenda');
+    const filters = [...document.querySelectorAll('.filter')];
+    let calendarData = null;
+    let selectedDays = 7;
+
+    document.querySelector('#today-date').textContent = new Date().toLocaleDateString([], {month:'long', day:'numeric'});
+    document.querySelector('#today-year').textContent = new Date().toLocaleDateString([], {weekday:'long', year:'numeric'});
+
+    function dateKey(iso) {
+      const value = new Date(iso);
+      return `${value.getFullYear()}-${String(value.getMonth()+1).padStart(2,'0')}-${String(value.getDate()).padStart(2,'0')}`;
+    }
+
+    function localDateLabel(key, todayKey) {
+      const date = new Date(`${key}T12:00:00`);
+      if (key === todayKey) return 'Today';
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      if (key === dateKey(tomorrow.toISOString())) return 'Tomorrow';
+      return date.toLocaleDateString([], {weekday:'long'});
+    }
+
+    function timeLabel(event) {
+      if (event.all_day) return 'All day';
+      return new Date(event.start).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+
+    function titleCase(value) {
+      return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+    }
+
+    function setConnection(state, sources = []) {
+      const hasAvailable = sources.some((source) => source.state === 'available');
+      const dot = document.querySelector('#status-dot');
+      dot.className = `status-dot ${hasAvailable && state !== 'partial' ? 'ok' : state === 'partial' ? 'warn' : ''}`;
+      const label = state === 'available' ? 'Calendar connected' : state === 'partial' ? 'Some calendars unavailable' : state === 'unavailable' ? 'Calendar unavailable' : 'Calendar not configured';
+      document.querySelector('#connection-label').textContent = label;
+  document.querySelector('#source-dot').className = dot.className;
+      if (sources.length) {
+        const names = sources.map((source) => `${source.name}: ${source.state}`).join(' · ');
+        document.querySelector('#source-summary').textContent = names;
+      } else {
+        document.querySelector('#source-summary').textContent = 'No calendar sources configured';
+      }
+    }
+
+    function render() {
+      if (!calendarData) return;
+      const today = new Date();
+      const todayKey = dateKey(today.toISOString());
+      const end = new Date(today);
+      end.setDate(end.getDate() + selectedDays - 1);
+      const endKey = dateKey(end.toISOString());
+      const events = calendarData.events.filter((event) => {
+        const key = dateKey(event.start);
+        return key >= todayKey && key <= endKey;
+      });
+      document.querySelector('#household-eyebrow').textContent = calendarData.household ? `${calendarData.household} / household calendar` : 'Household calendar';
+      document.querySelector('#updated-at').textContent = calendarData.sources?.length
+        ? `Checked ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`
+        : 'Source update not checked';
+      agenda.replaceChildren();
+      if (calendarData.state === 'unavailable' && events.length === 0) {
+        const message = document.createElement('div');
+        message.className = 'problem';
+        message.textContent = calendarData.reason === 'unconfigured'
+          ? 'No calendar source is connected to the latest household yet.'
+          : 'The calendar source could not be reached. No events are shown as available.';
+        agenda.append(message);
+        return;
+      }
+      if (!events.length) {
+        const message = document.createElement('div');
+        message.className = 'empty';
+        message.textContent = `No events were returned for the next ${selectedDays} days. The source is connected; this is not an availability signal.`;
+        agenda.append(message);
+        return;
+      }
+      const groups = new Map();
+      events.forEach((event) => {
+        const key = dateKey(event.start);
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(event);
+      });
+      for (const [key, dayEvents] of groups) {
+        const group = document.createElement('article');
+        group.className = 'day-group';
+        const label = document.createElement('div');
+        label.className = 'day-label';
+        const dayName = document.createElement('strong');
+        dayName.textContent = localDateLabel(key, todayKey);
+        const dayDate = document.createElement('span');
+        dayDate.textContent = new Date(`${key}T12:00:00`).toLocaleDateString([], {month:'short', day:'numeric'});
+        label.append(dayName, dayDate);
+        const list = document.createElement('div');
+        list.className = 'event-list';
+        dayEvents.forEach((event) => {
+          const row = document.createElement('div');
+          row.className = 'event';
+          row.dataset.category = event.category || 'other';
+          const time = document.createElement('div');
+          time.className = 'event-time';
+          time.textContent = timeLabel(event);
+          const rule = document.createElement('div');
+          rule.className = 'event-rule';
+          const info = document.createElement('div');
+          const title = document.createElement('div');
+          title.className = 'event-title';
+          title.textContent = event.title;
+          const meta = document.createElement('div');
+          meta.className = 'event-meta';
+          meta.textContent = [event.source, ...(event.members || [])].filter(Boolean).join(' · ');
+          info.append(title, meta);
+          const kind = document.createElement('span');
+          kind.className = 'event-kind';
+          kind.textContent = titleCase(event.category || 'other');
+          row.append(time, rule, info, kind);
+          list.append(row);
+        });
+        group.append(label, list);
+        agenda.append(group);
+      }
+    }
+
+    filters.forEach((button) => button.addEventListener('click', () => {
+      filters.forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      selectedDays = Number(button.dataset.days);
+      render();
+    }));
+
+    document.querySelector('#sign-out').addEventListener('click', async () => {
+      const csrf = sessionStorage.getItem('chit_csrf') || '';
+      await fetch('/api/auth/logout', {method:'POST', headers:{'X-CSRF-Token':csrf}}).catch(() => {});
+      sessionStorage.removeItem('chit_csrf');
+      location.replace('/login.html');
+    });
+
+    fetch('/api/home/calendar', {cache:'no-store'})
+      .then(async (response) => {
+        const payload = await response.json();
+        if (response.status === 401) {
+          sessionStorage.removeItem('chit_csrf');
+          location.replace('/login.html?next=%2Fdashboard%2Fcalendar-home.html');
+          return null;
+        }
+        if (!response.ok) throw new Error(payload.error || 'Calendar request failed');
+        return payload;
+      })
+      .then((payload) => {
+        if (!payload) return;
+        calendarData = payload;
+        setConnection(payload.state, payload.sources || []);
+        render();
+      })
+      .catch(() => {
+        calendarData = {state:'unavailable', reason:'fetch_failed', events:[], sources:[]};
+        setConnection('unavailable');
+        render();
+      });
+  </script>
+</body>
+</html>

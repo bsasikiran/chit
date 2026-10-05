@@ -1,0 +1,1046 @@
+[
+  {
+    "name": "home",
+    "label": "Home",
+    "category": "core",
+    "path": "/icons/core/home.svg",
+    "keywords": [
+      "home",
+      "core"
+    ]
+  },
+  {
+    "name": "settings",
+    "label": "Settings",
+    "category": "core",
+    "path": "/icons/core/settings.svg",
+    "keywords": [
+      "settings",
+      "core"
+    ]
+  },
+  {
+    "name": "calendar",
+    "label": "Calendar",
+    "category": "core",
+    "path": "/icons/core/calendar.svg",
+    "keywords": [
+      "calendar",
+      "core"
+    ]
+  },
+  {
+    "name": "clock",
+    "label": "Clock",
+    "category": "core",
+    "path": "/icons/core/clock.svg",
+    "keywords": [
+      "clock",
+      "core"
+    ]
+  },
+  {
+    "name": "bell",
+    "label": "Notifications",
+    "category": "core",
+    "path": "/icons/core/bell.svg",
+    "keywords": [
+      "bell",
+      "notifications",
+      "core"
+    ]
+  },
+  {
+    "name": "search",
+    "label": "Search",
+    "category": "core",
+    "path": "/icons/core/search.svg",
+    "keywords": [
+      "search",
+      "core"
+    ]
+  },
+  {
+    "name": "plus",
+    "label": "Add",
+    "category": "core",
+    "path": "/icons/core/plus.svg",
+    "keywords": [
+      "plus",
+      "add",
+      "core"
+    ]
+  },
+  {
+    "name": "living-room",
+    "label": "Living room",
+    "category": "rooms",
+    "path": "/icons/rooms/living-room.svg",
+    "keywords": [
+      "living",
+      "room",
+      "rooms"
+    ]
+  },
+  {
+    "name": "bedroom",
+    "label": "Bedroom",
+    "category": "rooms",
+    "path": "/icons/rooms/bedroom.svg",
+    "keywords": [
+      "bedroom",
+      "rooms"
+    ]
+  },
+  {
+    "name": "kitchen",
+    "label": "Kitchen",
+    "category": "rooms",
+    "path": "/icons/rooms/kitchen.svg",
+    "keywords": [
+      "kitchen",
+      "rooms"
+    ]
+  },
+  {
+    "name": "bathroom",
+    "label": "Bathroom",
+    "category": "rooms",
+    "path": "/icons/rooms/bathroom.svg",
+    "keywords": [
+      "bathroom",
+      "rooms"
+    ]
+  },
+  {
+    "name": "office",
+    "label": "Office",
+    "category": "rooms",
+    "path": "/icons/rooms/office.svg",
+    "keywords": [
+      "office",
+      "rooms"
+    ]
+  },
+  {
+    "name": "garage",
+    "label": "Garage",
+    "category": "rooms",
+    "path": "/icons/rooms/garage.svg",
+    "keywords": [
+      "garage",
+      "rooms"
+    ]
+  },
+  {
+    "name": "garden",
+    "label": "Garden",
+    "category": "rooms",
+    "path": "/icons/rooms/garden.svg",
+    "keywords": [
+      "garden",
+      "rooms"
+    ]
+  },
+  {
+    "name": "light",
+    "label": "Light",
+    "category": "devices",
+    "path": "/icons/devices/light.svg",
+    "keywords": [
+      "light",
+      "devices"
+    ]
+  },
+  {
+    "name": "thermostat",
+    "label": "Thermostat",
+    "category": "devices",
+    "path": "/icons/devices/thermostat.svg",
+    "keywords": [
+      "thermostat",
+      "devices"
+    ]
+  },
+  {
+    "name": "lock",
+    "label": "Lock",
+    "category": "devices",
+    "path": "/icons/devices/lock.svg",
+    "keywords": [
+      "lock",
+      "devices"
+    ]
+  },
+  {
+    "name": "camera",
+    "label": "Camera",
+    "category": "devices",
+    "path": "/icons/devices/camera.svg",
+    "keywords": [
+      "camera",
+      "devices"
+    ]
+  },
+  {
+    "name": "speaker",
+    "label": "Speaker",
+    "category": "devices",
+    "path": "/icons/devices/speaker.svg",
+    "keywords": [
+      "speaker",
+      "devices"
+    ]
+  },
+  {
+    "name": "tv",
+    "label": "Television",
+    "category": "devices",
+    "path": "/icons/devices/tv.svg",
+    "keywords": [
+      "tv",
+      "television",
+      "devices"
+    ]
+  },
+  {
+    "name": "plug",
+    "label": "Smart plug",
+    "category": "devices",
+    "path": "/icons/devices/plug.svg",
+    "keywords": [
+      "plug",
+      "smart",
+      "devices"
+    ]
+  },
+  {
+    "name": "blinds",
+    "label": "Blinds",
+    "category": "devices",
+    "path": "/icons/devices/blinds.svg",
+    "keywords": [
+      "blinds",
+      "devices"
+    ]
+  },
+  {
+    "name": "door",
+    "label": "Door",
+    "category": "devices",
+    "path": "/icons/devices/door.svg",
+    "keywords": [
+      "door",
+      "devices"
+    ]
+  },
+  {
+    "name": "window",
+    "label": "Window",
+    "category": "devices",
+    "path": "/icons/devices/window.svg",
+    "keywords": [
+      "window",
+      "devices"
+    ]
+  },
+  {
+    "name": "motion",
+    "label": "Motion sensor",
+    "category": "devices",
+    "path": "/icons/devices/motion.svg",
+    "keywords": [
+      "motion",
+      "sensor",
+      "devices"
+    ]
+  },
+  {
+    "name": "co2",
+    "label": "Carbon dioxide sensor",
+    "category": "devices",
+    "path": "/icons/devices/co2.svg",
+    "keywords": [
+      "co2",
+      "carbon",
+      "dioxide",
+      "sensor",
+      "devices"
+    ]
+  },
+  {
+    "name": "smoke",
+    "label": "Smoke detector",
+    "category": "devices",
+    "path": "/icons/devices/smoke.svg",
+    "keywords": [
+      "smoke",
+      "detector",
+      "devices"
+    ]
+  },
+  {
+    "name": "vacuum",
+    "label": "Robot vacuum",
+    "category": "devices",
+    "path": "/icons/devices/vacuum.svg",
+    "keywords": [
+      "vacuum",
+      "robot",
+      "devices"
+    ]
+  },
+  {
+    "name": "washer",
+    "label": "Washing machine",
+    "category": "devices",
+    "path": "/icons/devices/washer.svg",
+    "keywords": [
+      "washer",
+      "washing",
+      "machine",
+      "devices"
+    ]
+  },
+  {
+    "name": "solar",
+    "label": "Solar generation",
+    "category": "energy",
+    "path": "/icons/energy/solar.svg",
+    "keywords": [
+      "solar",
+      "generation",
+      "energy"
+    ]
+  },
+  {
+    "name": "battery",
+    "label": "Battery storage",
+    "category": "energy",
+    "path": "/icons/energy/battery.svg",
+    "keywords": [
+      "battery",
+      "storage",
+      "energy"
+    ]
+  },
+  {
+    "name": "grid",
+    "label": "Electricity grid",
+    "category": "energy",
+    "path": "/icons/energy/grid.svg",
+    "keywords": [
+      "grid",
+      "electricity",
+      "energy"
+    ]
+  },
+  {
+    "name": "power-flow",
+    "label": "Power flow",
+    "category": "energy",
+    "path": "/icons/energy/power-flow.svg",
+    "keywords": [
+      "power",
+      "flow",
+      "energy"
+    ]
+  },
+  {
+    "name": "ev-charger",
+    "label": "EV charger",
+    "category": "energy",
+    "path": "/icons/energy/ev-charger.svg",
+    "keywords": [
+      "ev",
+      "charger",
+      "energy"
+    ]
+  },
+  {
+    "name": "heat-pump",
+    "label": "Heat pump",
+    "category": "energy",
+    "path": "/icons/energy/heat-pump.svg",
+    "keywords": [
+      "heat",
+      "pump",
+      "energy"
+    ]
+  },
+  {
+    "name": "temperature",
+    "label": "Temperature",
+    "category": "climate",
+    "path": "/icons/climate/temperature.svg",
+    "keywords": [
+      "temperature",
+      "climate"
+    ]
+  },
+  {
+    "name": "humidity",
+    "label": "Humidity",
+    "category": "climate",
+    "path": "/icons/climate/humidity.svg",
+    "keywords": [
+      "humidity",
+      "climate"
+    ]
+  },
+  {
+    "name": "fan",
+    "label": "Fan",
+    "category": "climate",
+    "path": "/icons/climate/fan.svg",
+    "keywords": [
+      "fan",
+      "climate"
+    ]
+  },
+  {
+    "name": "air-quality",
+    "label": "Air quality",
+    "category": "climate",
+    "path": "/icons/climate/air-quality.svg",
+    "keywords": [
+      "air",
+      "quality",
+      "climate"
+    ]
+  },
+  {
+    "name": "wind",
+    "label": "Wind",
+    "category": "climate",
+    "path": "/icons/climate/wind.svg",
+    "keywords": [
+      "wind",
+      "climate"
+    ]
+  },
+  {
+    "name": "sun",
+    "label": "Sunny",
+    "category": "climate",
+    "path": "/icons/climate/sun.svg",
+    "keywords": [
+      "sun",
+      "sunny",
+      "climate"
+    ]
+  },
+  {
+    "name": "cloud",
+    "label": "Cloudy",
+    "category": "climate",
+    "path": "/icons/climate/cloud.svg",
+    "keywords": [
+      "cloud",
+      "cloudy",
+      "climate"
+    ]
+  },
+  {
+    "name": "rain",
+    "label": "Rain",
+    "category": "climate",
+    "path": "/icons/climate/rain.svg",
+    "keywords": [
+      "rain",
+      "climate"
+    ]
+  },
+  {
+    "name": "snow",
+    "label": "Snow",
+    "category": "climate",
+    "path": "/icons/climate/snow.svg",
+    "keywords": [
+      "snow",
+      "climate"
+    ]
+  },
+  {
+    "name": "shield",
+    "label": "Security",
+    "category": "security",
+    "path": "/icons/security/shield.svg",
+    "keywords": [
+      "shield",
+      "security"
+    ]
+  },
+  {
+    "name": "alarm",
+    "label": "Alarm",
+    "category": "security",
+    "path": "/icons/security/alarm.svg",
+    "keywords": [
+      "alarm",
+      "security"
+    ]
+  },
+  {
+    "name": "key",
+    "label": "Key",
+    "category": "security",
+    "path": "/icons/security/key.svg",
+    "keywords": [
+      "key",
+      "security"
+    ]
+  },
+  {
+    "name": "fingerprint",
+    "label": "Fingerprint",
+    "category": "security",
+    "path": "/icons/security/fingerprint.svg",
+    "keywords": [
+      "fingerprint",
+      "security"
+    ]
+  },
+  {
+    "name": "face-id",
+    "label": "Face identification",
+    "category": "security",
+    "path": "/icons/security/face-id.svg",
+    "keywords": [
+      "face",
+      "id",
+      "identification",
+      "security"
+    ]
+  },
+  {
+    "name": "wifi",
+    "label": "Wi-Fi",
+    "category": "security",
+    "path": "/icons/security/wifi.svg",
+    "keywords": [
+      "wifi",
+      "wi",
+      "fi",
+      "security"
+    ]
+  },
+  {
+    "name": "network",
+    "label": "Network",
+    "category": "security",
+    "path": "/icons/security/network.svg",
+    "keywords": [
+      "network",
+      "security"
+    ]
+  },
+  {
+    "name": "backup",
+    "label": "Backup",
+    "category": "security",
+    "path": "/icons/security/backup.svg",
+    "keywords": [
+      "backup",
+      "security"
+    ]
+  },
+  {
+    "name": "update",
+    "label": "System update",
+    "category": "security",
+    "path": "/icons/security/update.svg",
+    "keywords": [
+      "update",
+      "system",
+      "security"
+    ]
+  },
+  {
+    "name": "schedule",
+    "label": "Schedule",
+    "category": "planner",
+    "path": "/icons/planner/schedule.svg",
+    "keywords": [
+      "schedule",
+      "planner"
+    ]
+  },
+  {
+    "name": "task",
+    "label": "Task",
+    "category": "planner",
+    "path": "/icons/planner/task.svg",
+    "keywords": [
+      "task",
+      "planner"
+    ]
+  },
+  {
+    "name": "task-complete",
+    "label": "Completed task",
+    "category": "planner",
+    "path": "/icons/planner/task-complete.svg",
+    "keywords": [
+      "task",
+      "complete",
+      "completed",
+      "planner"
+    ]
+  },
+  {
+    "name": "task-overdue",
+    "label": "Overdue task",
+    "category": "planner",
+    "path": "/icons/planner/task-overdue.svg",
+    "keywords": [
+      "task",
+      "overdue",
+      "planner"
+    ]
+  },
+  {
+    "name": "reminder",
+    "label": "Reminder",
+    "category": "planner",
+    "path": "/icons/planner/reminder.svg",
+    "keywords": [
+      "reminder",
+      "planner"
+    ]
+  },
+  {
+    "name": "appointment",
+    "label": "Appointment",
+    "category": "planner",
+    "path": "/icons/planner/appointment.svg",
+    "keywords": [
+      "appointment",
+      "planner"
+    ]
+  },
+  {
+    "name": "chore",
+    "label": "Chore assignment",
+    "category": "planner",
+    "path": "/icons/planner/chore.svg",
+    "keywords": [
+      "chore",
+      "assignment",
+      "planner"
+    ]
+  },
+  {
+    "name": "shared-event",
+    "label": "Shared event",
+    "category": "planner",
+    "path": "/icons/planner/shared-event.svg",
+    "keywords": [
+      "shared",
+      "event",
+      "planner"
+    ]
+  },
+  {
+    "name": "person",
+    "label": "Person",
+    "category": "family",
+    "path": "/icons/family/person.svg",
+    "keywords": [
+      "person",
+      "family"
+    ]
+  },
+  {
+    "name": "family",
+    "label": "Family",
+    "category": "family",
+    "path": "/icons/family/family.svg",
+    "keywords": [
+      "family"
+    ]
+  },
+  {
+    "name": "profile",
+    "label": "Profile",
+    "category": "family",
+    "path": "/icons/family/profile.svg",
+    "keywords": [
+      "profile",
+      "family"
+    ]
+  },
+  {
+    "name": "work",
+    "label": "Work",
+    "category": "family",
+    "path": "/icons/family/work.svg",
+    "keywords": [
+      "work",
+      "family"
+    ]
+  },
+  {
+    "name": "school",
+    "label": "School",
+    "category": "family",
+    "path": "/icons/family/school.svg",
+    "keywords": [
+      "school",
+      "family"
+    ]
+  },
+  {
+    "name": "gym",
+    "label": "Gym",
+    "category": "family",
+    "path": "/icons/family/gym.svg",
+    "keywords": [
+      "gym",
+      "family"
+    ]
+  },
+  {
+    "name": "commuting",
+    "label": "Commuting",
+    "category": "family",
+    "path": "/icons/family/commuting.svg",
+    "keywords": [
+      "commuting",
+      "family"
+    ]
+  },
+  {
+    "name": "car",
+    "label": "Car",
+    "category": "family",
+    "path": "/icons/family/car.svg",
+    "keywords": [
+      "car",
+      "family"
+    ]
+  },
+  {
+    "name": "bike",
+    "label": "Bicycle",
+    "category": "family",
+    "path": "/icons/family/bike.svg",
+    "keywords": [
+      "bike",
+      "bicycle",
+      "family"
+    ]
+  },
+  {
+    "name": "walk",
+    "label": "Walking",
+    "category": "family",
+    "path": "/icons/family/walk.svg",
+    "keywords": [
+      "walk",
+      "walking",
+      "family"
+    ]
+  },
+  {
+    "name": "arrival",
+    "label": "Arriving",
+    "category": "family",
+    "path": "/icons/family/arrival.svg",
+    "keywords": [
+      "arrival",
+      "arriving",
+      "family"
+    ]
+  },
+  {
+    "name": "departure",
+    "label": "Leaving",
+    "category": "family",
+    "path": "/icons/family/departure.svg",
+    "keywords": [
+      "departure",
+      "leaving",
+      "family"
+    ]
+  },
+  {
+    "name": "location",
+    "label": "Location",
+    "category": "family",
+    "path": "/icons/family/location.svg",
+    "keywords": [
+      "location",
+      "family"
+    ]
+  },
+  {
+    "name": "location-hidden",
+    "label": "Hidden location",
+    "category": "family",
+    "path": "/icons/family/location-hidden.svg",
+    "keywords": [
+      "location",
+      "hidden",
+      "family"
+    ]
+  },
+  {
+    "name": "eta",
+    "label": "Estimated arrival",
+    "category": "family",
+    "path": "/icons/family/eta.svg",
+    "keywords": [
+      "eta",
+      "estimated",
+      "arrival",
+      "family"
+    ]
+  },
+  {
+    "name": "guest",
+    "label": "Guest access",
+    "category": "family",
+    "path": "/icons/family/guest.svg",
+    "keywords": [
+      "guest",
+      "access",
+      "family"
+    ]
+  },
+  {
+    "name": "heart-rate",
+    "label": "Heart rate",
+    "category": "health",
+    "path": "/icons/health/heart-rate.svg",
+    "keywords": [
+      "heart",
+      "rate",
+      "health"
+    ]
+  },
+  {
+    "name": "sleep",
+    "label": "Sleep",
+    "category": "health",
+    "path": "/icons/health/sleep.svg",
+    "keywords": [
+      "sleep",
+      "health"
+    ]
+  },
+  {
+    "name": "steps",
+    "label": "Steps",
+    "category": "health",
+    "path": "/icons/health/steps.svg",
+    "keywords": [
+      "steps",
+      "health"
+    ]
+  },
+  {
+    "name": "stress",
+    "label": "Stress",
+    "category": "health",
+    "path": "/icons/health/stress.svg",
+    "keywords": [
+      "stress",
+      "health"
+    ]
+  },
+  {
+    "name": "blood-oxygen",
+    "label": "Blood oxygen",
+    "category": "health",
+    "path": "/icons/health/blood-oxygen.svg",
+    "keywords": [
+      "blood",
+      "oxygen",
+      "health"
+    ]
+  },
+  {
+    "name": "health-trend",
+    "label": "Health trend",
+    "category": "health",
+    "path": "/icons/health/health-trend.svg",
+    "keywords": [
+      "health",
+      "trend"
+    ]
+  },
+  {
+    "name": "workout",
+    "label": "Workout",
+    "category": "health",
+    "path": "/icons/health/workout.svg",
+    "keywords": [
+      "workout",
+      "health"
+    ]
+  },
+  {
+    "name": "wellbeing",
+    "label": "Wellbeing check",
+    "category": "health",
+    "path": "/icons/health/wellbeing.svg",
+    "keywords": [
+      "wellbeing",
+      "check",
+      "health"
+    ]
+  },
+  {
+    "name": "health-private",
+    "label": "Private health data",
+    "category": "health",
+    "path": "/icons/health/health-private.svg",
+    "keywords": [
+      "health",
+      "private",
+      "data"
+    ]
+  },
+  {
+    "name": "scene",
+    "label": "Scene",
+    "category": "automation",
+    "path": "/icons/automation/scene.svg",
+    "keywords": [
+      "scene",
+      "automation"
+    ]
+  },
+  {
+    "name": "trigger",
+    "label": "Trigger",
+    "category": "automation",
+    "path": "/icons/automation/trigger.svg",
+    "keywords": [
+      "trigger",
+      "automation"
+    ]
+  },
+  {
+    "name": "action",
+    "label": "Action",
+    "category": "automation",
+    "path": "/icons/automation/action.svg",
+    "keywords": [
+      "action",
+      "automation"
+    ]
+  },
+  {
+    "name": "routine",
+    "label": "Routine",
+    "category": "automation",
+    "path": "/icons/automation/routine.svg",
+    "keywords": [
+      "routine",
+      "automation"
+    ]
+  },
+  {
+    "name": "automation",
+    "label": "Automation",
+    "category": "automation",
+    "path": "/icons/automation/automation.svg",
+    "keywords": [
+      "automation"
+    ]
+  },
+  {
+    "name": "suggestion",
+    "label": "Smart suggestion",
+    "category": "automation",
+    "path": "/icons/automation/suggestion.svg",
+    "keywords": [
+      "suggestion",
+      "smart",
+      "automation"
+    ]
+  },
+  {
+    "name": "flow",
+    "label": "Automation flow",
+    "category": "automation",
+    "path": "/icons/automation/flow.svg",
+    "keywords": [
+      "flow",
+      "automation"
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "category": "status",
+    "path": "/icons/status/success.svg",
+    "keywords": [
+      "success",
+      "status"
+    ]
+  },
+  {
+    "name": "warning",
+    "label": "Warning",
+    "category": "status",
+    "path": "/icons/status/warning.svg",
+    "keywords": [
+      "warning",
+      "status"
+    ]
+  },
+  {
+    "name": "critical",
+    "label": "Critical",
+    "category": "status",
+    "path": "/icons/status/critical.svg",
+    "keywords": [
+      "critical",
+      "status"
+    ]
+  },
+  {
+    "name": "info",
+    "label": "Information",
+    "category": "status",
+    "path": "/icons/status/info.svg",
+    "keywords": [
+      "info",
+      "information",
+      "status"
+    ]
+  },
+  {
+    "name": "offline",
+    "label": "Offline",
+    "category": "status",
+    "path": "/icons/status/offline.svg",
+    "keywords": [
+      "offline",
+      "status"
+    ]
+  },
+  {
+    "name": "online",
+    "label": "Online",
+    "category": "status",
+    "path": "/icons/status/online.svg",
+    "keywords": [
+      "online",
+      "status"
+    ]
+  },
+  {
+    "name": "privacy",
+    "label": "Privacy",
+    "category": "status",
+    "path": "/icons/status/privacy.svg",
+    "keywords": [
+      "privacy",
+      "status"
+    ]
+  }
+]

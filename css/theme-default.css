@@ -1,0 +1,12 @@
+:root {
+  --bg-page: #f5f7fb;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #2563eb;
+  --accent-contrast: #ffffff;
+  --border: #e2e8f0;
+  --shadow: 0 4px 16px rgba(2, 6, 23, 0.06);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --nav-border: rgba(226, 232, 240, 0.8);
+}
